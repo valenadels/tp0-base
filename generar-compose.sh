@@ -41,8 +41,10 @@ function write_client_config() {
         echo "    environment:" >> $output_file
         echo "      - CLI_ID=$i" >> $output_file
         echo "      - CLI_LOG_LEVEL=DEBUG" >> $output_file
-        echo "    networks: [testing_net]" >> $output_file
-        echo "    depends_on: [server]" >> $output_file
+        echo "    networks:" >> $output_file
+        echo "      - testing_net" >> $output_file
+        echo "    depends_on:" >> $output_file
+        echo "      - server" >> $output_file
     done
 }
 
