@@ -29,6 +29,8 @@ function write_server_config() {
     echo "      - LOGGING_LEVEL=DEBUG" >> $output_file
     echo "    networks:" >> $output_file
     echo "      - testing_net" >> $output_file
+    echo "    volumes:" >> $output_file
+    echo "      - ./server/config.ini:/server/config.ini" >> $output_file
 }
 
 function write_client_config() {
@@ -43,6 +45,8 @@ function write_client_config() {
         echo "      - CLI_LOG_LEVEL=DEBUG" >> $output_file
         echo "    networks:" >> $output_file
         echo "      - testing_net" >> $output_file
+        echo "    volumes:" >> $output_file
+        echo "      - ./client/config.yaml:/config.yaml" >> $output_file
         echo "    depends_on:" >> $output_file
         echo "      - server" >> $output_file
     done
