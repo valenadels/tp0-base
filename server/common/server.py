@@ -60,9 +60,10 @@ class Server:
         logging.info(f'action: accept_connections | result: success | ip: {addr[0]}')
         return c
     
-    def server_handle_SIGTERM(self):
-        logging.info('Received SIGTERM signal')
+    def server_handle_SIGTERM(self): 
         for client_sock in self._client_sockets:
             client_sock.close()
+            logging.info("action: close_client_connection | result: success")
         self._server_socket.close()
+        logging.info("action: close_server | result: success")
         sys.exit(0)
