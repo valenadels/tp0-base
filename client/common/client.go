@@ -60,18 +60,7 @@ func (c *Client) StartClientLoop() {
 
 	go func() {
         <-sigs
-        err := c.Close()
-        if err != nil {
-            log.Errorf("action: close_resources | result: fail | client_id: %v | error: %v",
-                c.config.ID,
-                err,
-            )
-        } else {
-            log.Infof("action: close_resources | result: success | client_id: %v",
-                c.config.ID,
-            )
-        }
-		close(sigs)
+        c.HandleSIGTERM(sigs)
         os.Exit(0)
     }()
 
@@ -111,12 +100,16 @@ func (c *Client) StartClientLoop() {
 	log.Infof("action: loop_finished | result: success | client_id: %v", c.config.ID)
 }
 
-func (c *Client) Close() error {
+func (c *Client) HandleSIGTERM(sigs chan os.Signal) {
     if c.conn != nil {
         err := c.conn.Close()
-        if err != nil {
-            return err
+        if err == nil {
+			log.Infof("action: close_connection | result: success | client_id: %v", c.config.ID)
         }
     }
-    return nil
+
+	if sigs != nil {
+		close(sigs)
+		log.Infof("action: close_client | result: success | client_id: %v", c.config.ID)
+	}	
 }
