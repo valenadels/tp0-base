@@ -9,6 +9,17 @@ type Bet struct {
 	Number    string
 }
 
+func CreateBetFromCsv(record []string, agencyId string) *Bet {
+	return &Bet{
+		AgencyId:  agencyId,
+		FirstName: record[0],
+		LastName:  record[1],
+		Document:  record[2],
+		Birthdate: record[3],
+		Number:    record[4],
+	}
+}
+
 func (b *Bet) toBytes() []byte {
 	var data []byte
 

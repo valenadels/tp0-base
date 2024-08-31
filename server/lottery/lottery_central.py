@@ -35,10 +35,10 @@ class LotteryCentral:
         client socket will also be closed
         """
         try:
-            bet = self.read_bet_from_socket(client_sock)
+            bets = self.read_bets_from_socket(client_sock)
             addr = client_sock.getpeername()
-            logging.info(f'action: receive_message | result: success | ip: {addr[0]} | msg: {bet}')
-            store_bets([bet])
+            logging.info(f'action: receive_message | result: success | ip: {addr[0]} | msg: {bets}')
+            store_bets(bets)
             logging.info(f'action: apuesta_almacenada | result: success | dni: {bet.document} | numero: {bet.number}')
         except OSError as e:
             logging.error("action: receive_message | result: fail | error: {e}")
@@ -68,16 +68,21 @@ class LotteryCentral:
         logging.info("action: close_server | result: success")
         sys.exit(0)
 
-    def read_bet_from_socket(self, client_sock):
+    def read_bets_from_socket(self, client_sock):
         bet_fields = Bet.get_fields()
-        bet_values = {}
         buffer = b''
+        bets = []
 
-        while bet_fields:
+        while True:
             data = client_sock.recv(READ_BUFFER_SIZE)
             buffer += data
-            
-            while len(buffer) >= U8_SIZE:
+            bets += self.parse_bet(bet_fields.copy, buffer) #TODO VALEN ver si anda el copy
+
+        return bets
+
+    def parse_bet(self, bet_fields, buffer):
+        bet_values = {}
+        while bet_fields and len(buffer) >= U8_SIZE:
                 length_data = int.from_bytes(buffer[:U8_SIZE], byteorder='big')
                 buffer = buffer[U8_SIZE:] 
 
@@ -86,5 +91,5 @@ class LotteryCentral:
 
                 field_data, buffer = buffer[:length_data], buffer[length_data:]
                 bet_values[bet_fields.pop(0)] = field_data.decode('utf-8')
-
+                
         return Bet(**bet_values)

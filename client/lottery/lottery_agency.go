@@ -18,10 +18,12 @@ const READ_BUFFER_SIZE = 1024
 
 // AgencyConfig Configuration used by the agency
 type AgencyConfig struct {
-	ID            string
-	ServerAddress string
-	LoopAmount    int
-	LoopPeriod    time.Duration
+	ID             string
+	ServerAddress  string
+	LoopAmount     int
+	LoopPeriod     time.Duration
+	MaxBatchAmount int
+	BetReader 	   *BetReader
 }
 
 // Agency Entity that encapsulates how
@@ -70,44 +72,73 @@ func (c *Agency) StartAgency() {
 		os.Exit(1)
 	}
 
-	if c.sendBet() != nil {
+	if c.sendBets() != nil {
 		close(sigs)
+		if c.config.BetReader != nil {
+			c.config.BetReader.Close()
+		}
 		os.Exit(1)
 	}
 
 	c.conn.Close()
 }
 
-func (c *Agency) sendBet() error {
-	bet := readBetFromEnv()
-	betBytes := bet.toBytes()
-	length := len(betBytes)
+func (c *Agency) sendBets() error {
+	c.config.BetReader = NewBetReader(c.config.ID, c.config.MaxBatchAmount)
+	if c.config.BetReader == nil {
+		return errors.New("error creating bet reader")
+	}
 
-	for length > 0 {
-		n, err := c.conn.Write(betBytes)
-		if errors.Is(err, io.ErrClosedPipe) {
-			log.Criticalf(`action: apuesta_enviada | result: fail | dni: %v | numero: %v | error: %v`, bet.Document, bet.Number, err)
+	batchNumber := 0
+
+	for {
+		batch, err := c.config.BetReader.ReadNextBatch()
+		if err != nil {
+			log.Criticalf(
+				"action: read_file | result: fail | agency_id: %v | error: %v",
+				c.config.ID,
+				err,
+			)
 			return err
 		}
 
-		betBytes = betBytes[n:]
-		length -= n
+		if len(batch) == 0 {
+			break
+		}
+
+		batchNumber++
+		length := len(batch)
+		
+		sendError := c.sendBatch(length, batch)
+		if sendError != nil {
+			log.Criticalf(`action: apuestas_enviadas | result: fail | cantidad: %v | batch: %v | error: %v`, length, batchNumber, err)
+			return sendError
+		}
+
+		log.Infof(`action: apuestas_enviadas | result: success | cantidad: %v | batch: %v`, length, batchNumber)
 	}
 
-	log.Infof(`action: apuesta_enviada | result: success | dni: %v | numero: %v`, bet.Document, bet.Number)
+	c.config.BetReader.Close()
+	c.config.BetReader = nil
+
 	return nil
 }
 
-func readBetFromEnv() *Bet {
-	return &Bet{
-		AgencyId:  os.Getenv("CLI_ID"),
-		FirstName: os.Getenv("NOMBRE"),
-		LastName:  os.Getenv("APELLIDO"),
-		Document:  os.Getenv("DOCUMENTO"),
-		Birthdate: os.Getenv("NACIMIENTO"),
-		Number:    os.Getenv("NUMERO"),
+func (c *Agency) sendBatch(length int, batch []byte) error {
+	for length > 0 {
+		n, err := c.conn.Write(batch)
+		if errors.Is(err, io.ErrClosedPipe) {
+			return err
+		}
+
+		batch = batch[n:]
+		length -= n
 	}
+
+	return nil
 }
+
+
 
 func (c *Agency) HandleSIGTERM(sigs chan os.Signal) {
 	if c.conn != nil {
@@ -115,6 +146,10 @@ func (c *Agency) HandleSIGTERM(sigs chan os.Signal) {
 		if err == nil {
 			log.Infof("action: close_connection | result: success | client_id: %v", c.config.ID)
 		}
+	}
+
+	if c.config.BetReader != nil {
+		c.config.BetReader.Close()
 	}
 
 	if sigs != nil {

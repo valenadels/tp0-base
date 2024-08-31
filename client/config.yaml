@@ -1,4 +1,3 @@
-# id: 1
 server:
   address: "server:12345"
 loop:
@@ -7,4 +6,4 @@ loop:
 log:
   level: "INFO"
 batch:
-  maxAmount: 10
+  maxAmount: 133

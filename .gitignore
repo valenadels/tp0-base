@@ -4,3 +4,6 @@
 # Executables
 bin/
 server/lottery/__pycache__/
+
+# Data
+.data/dataset

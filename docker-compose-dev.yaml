@@ -17,11 +17,8 @@ services:
     environment:
       - CLI_ID=1
       - CLI_LOG_LEVEL=DEBUG
-      - NOMBRE=Juan
-      - APELLIDO=Perez
-      - DOCUMENTO=12345678
-      - NUMERO=123
-      - NACIMIENTO=1990-01-01
+    volumes:
+      - ./.data/dataset/agency-1.csv:/agency.csv
     networks:
       - testing_net
     depends_on:
@@ -33,11 +30,8 @@ services:
     environment:
       - CLI_ID=2
       - CLI_LOG_LEVEL=DEBUG
-      - NOMBRE=Juan
-      - APELLIDO=Perez
-      - DOCUMENTO=12345678
-      - NUMERO=123
-      - NACIMIENTO=1990-01-01
+    volumes:
+      - ./.data/dataset/agency-2.csv:/agency.csv
     networks:
       - testing_net
     depends_on:
@@ -49,11 +43,8 @@ services:
     environment:
       - CLI_ID=3
       - CLI_LOG_LEVEL=DEBUG
-      - NOMBRE=Juan
-      - APELLIDO=Perez
-      - DOCUMENTO=12345678
-      - NUMERO=123
-      - NACIMIENTO=1990-01-01
+    volumes:
+      - ./.data/dataset/agency-3.csv:/agency.csv
     networks:
       - testing_net
     depends_on:
@@ -65,11 +56,8 @@ services:
     environment:
       - CLI_ID=4
       - CLI_LOG_LEVEL=DEBUG
-      - NOMBRE=Juan
-      - APELLIDO=Perez
-      - DOCUMENTO=12345678
-      - NUMERO=123
-      - NACIMIENTO=1990-01-01
+    volumes:
+      - ./.data/dataset/agency-4.csv:/agency.csv
     networks:
       - testing_net
     depends_on:
@@ -81,11 +69,8 @@ services:
     environment:
       - CLI_ID=5
       - CLI_LOG_LEVEL=DEBUG
-      - NOMBRE=Juan
-      - APELLIDO=Perez
-      - DOCUMENTO=12345678
-      - NUMERO=123
-      - NACIMIENTO=1990-01-01
+    volumes:
+      - ./.data/dataset/agency-5.csv:/agency.csv
     networks:
       - testing_net
     depends_on:
