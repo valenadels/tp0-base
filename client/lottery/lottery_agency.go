@@ -39,8 +39,7 @@ func NewAgency(config AgencyConfig) *Agency {
 }
 
 // createAgencySocket Initializes agency socket. In case of
-// failure, error is printed in stdout/stderr and exit 1
-// is returned
+// failure, error is printed in stdout/stderr and error is returned
 func (c *Agency) createAgencySocket() error {
 	conn, err := net.Dial("tcp", c.config.ServerAddress)
 	if err != nil {
@@ -49,6 +48,7 @@ func (c *Agency) createAgencySocket() error {
 			c.config.ID,
 			err,
 		)
+		return err
 	}
 	c.conn = conn
 	return nil
@@ -65,8 +65,9 @@ func (c *Agency) StartAgency() {
 	}()
 
 	if c.createAgencySocket() != nil {
-		return
+		os.Exit(1)
 	}
+
 	c.sendBet()
 	c.conn.Close()
 }
@@ -92,6 +93,7 @@ func (c *Agency) sendBet() {
 
 func readBetFromEnv() *Bet {
 	return &Bet{
+		Id: os.Getenv("CLI_ID"),
 		FirstName: os.Getenv("NOMBRE"),
 		LastName: os.Getenv("APELLIDO"),
 		Document: os.Getenv("DOCUMENTO"),

@@ -68,7 +68,7 @@ class LotteryCentral:
 
     def read_bet_from_socket(self, client_sock):
         bet_fields = Bet.get_fields()
-        bet_values = {bet_fields.pop(0): client_sock.getpeername()[0].replace('.', '')}
+        bet_values = {}
         buffer = b''
 
         while bet_fields:
