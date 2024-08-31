@@ -24,6 +24,23 @@ class Bet:
         self.birthdate = datetime.date.fromisoformat(birthdate)
         self.number = int(number)
 
+    def __str__(self):
+        fields = Bet.get_fields()
+        return ', '.join([f'{field}: {getattr(self, field)}' for field in fields])
+
+    """ 
+    Returns the fields of the Bet class. The order is:
+        1- agency
+        2- first_name
+        3- last_name
+        4- document
+        5- birthdate
+        6- number
+    """
+    @classmethod
+    def get_fields(cls) -> list[str]:
+        return ['agency', 'first_name', 'last_name', 'document', 'birthdate', 'number']
+    
 """ Checks whether a bet won the prize or not. """
 def has_won(bet: Bet) -> bool:
     return bet.number == LOTTERY_WINNER_NUMBER

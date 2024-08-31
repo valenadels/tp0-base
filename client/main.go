@@ -6,11 +6,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/7574-sistemas-distribuidos/docker-compose-init/client/lottery"
 	"github.com/op/go-logging"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
-
-	"github.com/7574-sistemas-distribuidos/docker-compose-init/client/common"
 )
 
 var log = logging.MustGetLogger("log")
@@ -103,13 +102,13 @@ func main() {
 	// Print program config with debugging purposes
 	PrintConfig(v)
 
-	clientConfig := common.ClientConfig{
+	clientConfig := lottery.AgencyConfig{
 		ServerAddress: v.GetString("server.address"),
 		ID:            v.GetString("id"),
 		LoopAmount:    v.GetInt("loop.amount"),
 		LoopPeriod:    v.GetDuration("loop.period"),
 	}
 
-	client := common.NewClient(clientConfig)
-	client.StartClientLoop()
+	client := lottery.NewAgency(clientConfig)
+	client.StartAgency()
 }
