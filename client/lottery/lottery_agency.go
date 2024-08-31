@@ -13,6 +13,7 @@ import (
 )
 
 var log = logging.MustGetLogger("log")
+
 const READ_BUFFER_SIZE = 1024
 
 // AgencyConfig Configuration used by the agency
@@ -65,23 +66,28 @@ func (c *Agency) StartAgency() {
 	}()
 
 	if c.createAgencySocket() != nil {
+		close(sigs)
 		os.Exit(1)
 	}
 
-	c.sendBet()
+	if c.sendBet() != nil {
+		close(sigs)
+		os.Exit(1)
+	}
+
 	c.conn.Close()
 }
 
-func (c *Agency) sendBet() {
+func (c *Agency) sendBet() error {
 	bet := readBetFromEnv()
 	betBytes := bet.toBytes()
 	length := len(betBytes)
 
 	for length > 0 {
 		n, err := c.conn.Write(betBytes)
-		if errors.Is(err, io.ErrClosedPipe){
-			//TODO VALEN ver q hacer... reconectar?
-			return 
+		if errors.Is(err, io.ErrClosedPipe) {
+			log.Criticalf(`action: apuesta_enviada | result: fail | dni: %v | numero: %v | error: %v`, bet.Document, bet.Number, err)
+			return err
 		}
 
 		betBytes = betBytes[n:]
@@ -89,16 +95,17 @@ func (c *Agency) sendBet() {
 	}
 
 	log.Infof(`action: apuesta_enviada | result: success | dni: %v | numero: %v`, bet.Document, bet.Number)
+	return nil
 }
 
 func readBetFromEnv() *Bet {
 	return &Bet{
-		Id: os.Getenv("CLI_ID"),
+		AgencyId:  os.Getenv("CLI_ID"),
 		FirstName: os.Getenv("NOMBRE"),
-		LastName: os.Getenv("APELLIDO"),
-		Document: os.Getenv("DOCUMENTO"),
+		LastName:  os.Getenv("APELLIDO"),
+		Document:  os.Getenv("DOCUMENTO"),
 		Birthdate: os.Getenv("NACIMIENTO"),
-		Number: os.Getenv("NUMERO"),
+		Number:    os.Getenv("NUMERO"),
 	}
 }
 

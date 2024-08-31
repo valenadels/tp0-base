@@ -6,6 +6,7 @@ import sys
 from lottery.bet import Bet, store_bets
 
 READ_BUFFER_SIZE = 1024
+U8_SIZE = 1
 
 class LotteryCentral:
     def __init__(self, port, listen_backlog):
@@ -35,9 +36,10 @@ class LotteryCentral:
         """
         try:
             bet = self.read_bet_from_socket(client_sock)
-            store_bets([bet])
             addr = client_sock.getpeername()
             logging.info(f'action: receive_message | result: success | ip: {addr[0]} | msg: {bet}')
+            store_bets([bet])
+            logging.info(f'action: apuesta_almacenada | result: success | dni: {bet.document} | numero: {bet.number}')
         except OSError as e:
             logging.error("action: receive_message | result: fail | error: {e}")
         finally:
@@ -74,10 +76,10 @@ class LotteryCentral:
         while bet_fields:
             data = client_sock.recv(READ_BUFFER_SIZE)
             buffer += data
-
-            while len(buffer) >= 1:
-                length_data = int.from_bytes(buffer[:1], byteorder='big')
-                buffer = buffer[1:] 
+            
+            while len(buffer) >= U8_SIZE:
+                length_data = int.from_bytes(buffer[:U8_SIZE], byteorder='big')
+                buffer = buffer[U8_SIZE:] 
 
                 if len(buffer) < length_data: 
                     break  

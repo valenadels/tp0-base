@@ -1,20 +1,19 @@
 package lottery
 
-
 type Bet struct {
-	Id string
+	AgencyId  string
 	FirstName string
-	LastName string
-	Document string
+	LastName  string
+	Document  string
 	Birthdate string
-	Number string
+	Number    string
 }
 
 func (b *Bet) toBytes() []byte {
 	var data []byte
 
-	data = append(data, uint8(len(b.Id)))
-	data = append(data, []byte(b.Id)...)
+	data = append(data, uint8(len(b.AgencyId)))
+	data = append(data, []byte(b.AgencyId)...)
 
 	data = append(data, uint8(len(b.FirstName)))
 	data = append(data, []byte(b.FirstName)...)
@@ -31,5 +30,5 @@ func (b *Bet) toBytes() []byte {
 	data = append(data, uint8(len(b.Number)))
 	data = append(data, []byte(b.Number)...)
 
-	return data	
+	return data
 }
