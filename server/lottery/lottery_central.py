@@ -3,7 +3,7 @@ import socket
 import logging
 import sys
 
-from lottery.bet import Bet
+from lottery.bet import Bet, store_bets
 
 READ_BUFFER_SIZE = 1024
 
@@ -35,6 +35,7 @@ class LotteryCentral:
         """
         try:
             bet = self.read_bet_from_socket(client_sock)
+            store_bets([bet])
             addr = client_sock.getpeername()
             logging.info(f'action: receive_message | result: success | ip: {addr[0]} | msg: {bet}')
         except OSError as e:
