@@ -3,3 +3,4 @@
 
 # Executables
 bin/
+server/lottery/__pycache__/
