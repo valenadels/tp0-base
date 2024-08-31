@@ -57,7 +57,7 @@ class LotteryCentral:
         logging.info(f'action: accept_connections | result: success | ip: {addr[0]}')
         return c
     
-    def handle_SIGTERM(self): 
+    def handle_SIGTERM(self, signum, frame):
         for client_sock in self._client_sockets:
             client_sock.close()
             logging.info("action: close_client_connection | result: success")
