@@ -4,8 +4,9 @@ import logging
 import sys
 
 from lottery.bet import Bet, store_bets
+from server.lottery.server_response import ServerResponse
 
-READ_BUFFER_SIZE = 1024
+READ_BUFFER_SIZE = 8192 # 8kB
 U8_SIZE = 1
 
 class LotteryCentral:
@@ -25,6 +26,7 @@ class LotteryCentral:
         signal.signal(signal.SIGTERM, self.handle_SIGTERM)
         while True:
             client_sock = self.__accept_new_connection()
+            client_sock.settimeout(0.5)
             self._client_sockets.append(client_sock)
             self.__handle_client_connection(client_sock)
 
@@ -34,16 +36,10 @@ class LotteryCentral:
         If a problem arises in the communication with the client, the
         client socket will also be closed
         """
-        try:
-            bets = self.read_bets_from_socket(client_sock)
-            addr = client_sock.getpeername()
-            logging.info(f'action: receive_message | result: success | ip: {addr[0]} | msg: {bets}')
-            store_bets(bets)
-            logging.info(f'action: apuesta_almacenada | result: success | dni: {bet.document} | numero: {bet.number}')
-        except OSError as e:
-            logging.error("action: receive_message | result: fail | error: {e}")
-        finally:
-            client_sock.close()
+        self.process_bets(client_sock)
+        addr = client_sock.getpeername()
+        logging.info(f'action: receive_message | result: success | ip: {addr[0]}')
+        client_sock.close()
         self._client_sockets.remove(client_sock)
 
     def __accept_new_connection(self):
@@ -68,28 +64,58 @@ class LotteryCentral:
         logging.info("action: close_server | result: success")
         sys.exit(0)
 
-    def read_bets_from_socket(self, client_sock):
-        bet_fields = Bet.get_fields()
+    def process_bets(self, client_sock):
         buffer = b''
-        bets = []
+        processed_chunk_size = False
+        chunk_size = 0
+        batch_size_bytes = U8_SIZE*2
 
         while True:
-            data = client_sock.recv(READ_BUFFER_SIZE)
+            try:
+                data = client_sock.recv(READ_BUFFER_SIZE)
+            except BrokenPipeError:
+                logging.info("action: receive_message | result: finished connection")
+                return 
+            
             buffer += data
-            bets += self.parse_bet(bet_fields.copy, buffer) #TODO VALEN ver si anda el copy
+            if len(buffer) > 0 and not processed_chunk_size:
+                chunk_size = int.from_bytes(buffer[:batch_size_bytes], byteorder='big')
+                buffer = buffer[batch_size_bytes:] 
+                processed_chunk_size = True
+                if len(buffer) < chunk_size: 
+                    break
+            
+            try:
+                chunk = self.parse_chunk(buffer, chunk_size)
+                store_bets(chunk)
+                client_sock.sendall(ServerResponse.ok_bytes())
+            except Exception as e:
+                logging.error("action: receive_message | result: fail | error: {e}")
+                client_sock.sendall(ServerResponse.error_bytes())
 
-        return bets
+            processed_chunk_size = False
 
-    def parse_bet(self, bet_fields, buffer):
-        bet_values = {}
-        while bet_fields and len(buffer) >= U8_SIZE:
-                length_data = int.from_bytes(buffer[:U8_SIZE], byteorder='big')
-                buffer = buffer[U8_SIZE:] 
+    def parse_chunk(self, buffer, chunk_size):
+        chunk = []
 
-                if len(buffer) < length_data: 
-                    break  
+        while chunk_size > 0:
+            bet_fields = Bet.get_fields()
+            bet_values = {}
+            while bet_fields:
+                if len(buffer) >= U8_SIZE:
+                    length_data = int.from_bytes(buffer[:U8_SIZE], byteorder='big')
+                    buffer = buffer[U8_SIZE:] 
+                    chunk_size -= U8_SIZE
 
-                field_data, buffer = buffer[:length_data], buffer[length_data:]
-                bet_values[bet_fields.pop(0)] = field_data.decode('utf-8')
-                
-        return Bet(**bet_values)
+                    # if len(buffer) < length_data: 
+                    #     break  # TODO valen Creo q no se da ese caso, pq entro sabiendo q chunk size = len(buffer) y el cliente no manda hasta recibir el ok/error
+
+                    field_data, buffer = buffer[:length_data], buffer[length_data:]
+                    bet_values[bet_fields.pop(0)] = field_data.decode('utf-8')
+                    chunk_size -= length_data
+            
+            try:
+                chunk.append(Bet(**bet_values))
+                return chunk
+            except TypeError as e:
+                return e

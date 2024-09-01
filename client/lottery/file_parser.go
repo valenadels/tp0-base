@@ -40,7 +40,7 @@ func NewBetReader(agencyId string, maxBatchAmount int) *BetReader {
 // ReadNextBatch reads the next batch of bets from the file. 
 // In case of error, nil is returned for the slice and the error is returned
 func (r *BetReader) ReadNextBatch() ([]byte, error) {
-	batch := make([]byte, r.MaxBatchAmount)
+	var batch []byte
 	eof := false
 	for i := 0; i < r.MaxBatchAmount && !eof; i++ {
 		record, err := r.reader.Read() 
@@ -55,7 +55,7 @@ func (r *BetReader) ReadNextBatch() ([]byte, error) {
 
 		batch = append(batch, CreateBetFromCsv(record, r.AgencyId).toBytes()...)
 	}
-
+	
 	return batch, nil
 }
 

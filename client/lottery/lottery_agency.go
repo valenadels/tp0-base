@@ -15,6 +15,7 @@ import (
 var log = logging.MustGetLogger("log")
 
 const READ_BUFFER_SIZE = 1024
+const RESPONSE_SIZE = 1
 
 // AgencyConfig Configuration used by the agency
 type AgencyConfig struct {
@@ -90,7 +91,6 @@ func (c *Agency) sendBets() error {
 	}
 
 	batchNumber := 0
-
 	for {
 		batch, err := c.config.BetReader.ReadNextBatch()
 		if err != nil {
@@ -107,21 +107,33 @@ func (c *Agency) sendBets() error {
 		}
 
 		batchNumber++
-		length := len(batch)
+		batch = addBatchBytesLen(batch)
 		
+		length := len(batch)
 		sendError := c.sendBatch(length, batch)
+		c.conn.Read(make([]byte, RESPONSE_SIZE))
 		if sendError != nil {
-			log.Criticalf(`action: apuestas_enviadas | result: fail | cantidad: %v | batch: %v | error: %v`, length, batchNumber, err)
+			log.Criticalf(`action: apuestas_enviadas | result: fail | bytes: %v | batch: %v | error: %v`, length, batchNumber, err)
 			return sendError
 		}
 
-		log.Infof(`action: apuestas_enviadas | result: success | cantidad: %v | batch: %v`, length, batchNumber)
+		log.Infof(`action: apuestas_enviadas | result: success | bytes: %v | batch: %v`, length, batchNumber)
 	}
 
 	c.config.BetReader.Close()
 	c.config.BetReader = nil
 
 	return nil
+}
+
+func addBatchBytesLen(batch []byte) []byte {
+	batchSize := uint16(len(batch))
+	batchWithLength := []byte{
+		byte(batchSize >> 8),
+		byte(batchSize & 0xff),
+	}
+
+	return append(batchWithLength, batch...)
 }
 
 func (c *Agency) sendBatch(length int, batch []byte) error {
@@ -137,8 +149,6 @@ func (c *Agency) sendBatch(length int, batch []byte) error {
 
 	return nil
 }
-
-
 
 func (c *Agency) HandleSIGTERM(sigs chan os.Signal) {
 	if c.conn != nil {
