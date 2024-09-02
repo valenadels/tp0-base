@@ -4,7 +4,7 @@ import logging
 import sys
 
 from lottery.bet import Bet, store_bets
-from server.lottery.server_response import ServerResponse
+from lottery.server_response import ServerResponse
 
 READ_BUFFER_SIZE = 8192 # 8kB
 U8_SIZE = 1
@@ -26,7 +26,6 @@ class LotteryCentral:
         signal.signal(signal.SIGTERM, self.handle_SIGTERM)
         while True:
             client_sock = self.__accept_new_connection()
-            client_sock.settimeout(0.5)
             self._client_sockets.append(client_sock)
             self.__handle_client_connection(client_sock)
 
@@ -36,8 +35,8 @@ class LotteryCentral:
         If a problem arises in the communication with the client, the
         client socket will also be closed
         """
-        self.process_bets(client_sock)
         addr = client_sock.getpeername()
+        self.process_bets(client_sock)
         logging.info(f'action: receive_message | result: success | ip: {addr[0]}')
         client_sock.close()
         self._client_sockets.remove(client_sock)
@@ -69,31 +68,44 @@ class LotteryCentral:
         processed_chunk_size = False
         chunk_size = 0
         batch_size_bytes = U8_SIZE*2
-
-        while True:
+        read = 0
+        timeout = 3
+        while timeout > 0:
             try:
-                data = client_sock.recv(READ_BUFFER_SIZE)
-            except BrokenPipeError:
+                data = client_sock.recv(READ_BUFFER_SIZE-read)
+                if not data:
+                    timeout -= 1
+            except BrokenPipeError | TimeoutError:
                 logging.info("action: receive_message | result: finished connection")
                 return 
             
             buffer += data
-            if len(buffer) > 0 and not processed_chunk_size:
+            read += len(buffer)
+            if read > 0 and not processed_chunk_size:
                 chunk_size = int.from_bytes(buffer[:batch_size_bytes], byteorder='big')
                 buffer = buffer[batch_size_bytes:] 
+                read -= batch_size_bytes
                 processed_chunk_size = True
-                if len(buffer) < chunk_size: 
-                    break
+            if read < chunk_size: 
+                continue
             
             try:
-                chunk = self.parse_chunk(buffer, chunk_size)
+                chunk, buffer = self.parse_chunk(buffer, chunk_size)
                 store_bets(chunk)
                 client_sock.sendall(ServerResponse.ok_bytes())
+            except BrokenPipeError:
+                logging.error("action: send_message | result: finished connection")
+                return
             except Exception as e:
-                logging.error("action: receive_message | result: fail | error: {e}")
-                client_sock.sendall(ServerResponse.error_bytes())
+                logging.error("action: receive_message | result: fail | error: %s", e)
+                try:
+                    client_sock.sendall(ServerResponse.error_bytes())
+                except BrokenPipeError:
+                    logging.error("action: send_message | result: finished connection")
+                    return
 
             processed_chunk_size = False
+            read = 0
 
     def parse_chunk(self, buffer, chunk_size):
         chunk = []
@@ -107,15 +119,15 @@ class LotteryCentral:
                     buffer = buffer[U8_SIZE:] 
                     chunk_size -= U8_SIZE
 
-                    # if len(buffer) < length_data: 
-                    #     break  # TODO valen Creo q no se da ese caso, pq entro sabiendo q chunk size = len(buffer) y el cliente no manda hasta recibir el ok/error
-
                     field_data, buffer = buffer[:length_data], buffer[length_data:]
                     bet_values[bet_fields.pop(0)] = field_data.decode('utf-8')
                     chunk_size -= length_data
             
             try:
                 chunk.append(Bet(**bet_values))
-                return chunk
             except TypeError as e:
+                logging.info("action: apuesta_recibida | result: fail | cantidad: %d", len(chunk))
                 return e
+            
+        logging.info("action: apuesta_recibida | result: success | cantidad: %d", len(chunk))
+        return chunk, buffer

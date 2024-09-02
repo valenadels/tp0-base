@@ -78,10 +78,13 @@ func (c *Agency) StartAgency() {
 		if c.config.BetReader != nil {
 			c.config.BetReader.Close()
 		}
+		c.conn.Close()
 		os.Exit(1)
 	}
 
-	c.conn.Close()
+	if c.conn.Close() == nil {
+		log.Infof("action: close_connection | result: success | client_id: %v", c.config.ID)
+	}
 }
 
 func (c *Agency) sendBets() error {
@@ -111,11 +114,11 @@ func (c *Agency) sendBets() error {
 		
 		length := len(batch)
 		sendError := c.sendBatch(length, batch)
-		c.conn.Read(make([]byte, RESPONSE_SIZE))
 		if sendError != nil {
 			log.Criticalf(`action: apuestas_enviadas | result: fail | bytes: %v | batch: %v | error: %v`, length, batchNumber, err)
 			return sendError
 		}
+		c.conn.Read(make([]byte, RESPONSE_SIZE))
 
 		log.Infof(`action: apuestas_enviadas | result: success | bytes: %v | batch: %v`, length, batchNumber)
 	}
