@@ -44,7 +44,7 @@ class LotteryCentral:
             logging.error("action: receive_message | result: fail | error: {e}")
         finally:
             client_sock.close()
-        self._client_sockets.remove(client_sock)
+            self._client_sockets.remove(client_sock)
 
     def __accept_new_connection(self):
         """
