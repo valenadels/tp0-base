@@ -62,5 +62,3 @@ validate_input
 write_server_config
 write_client_config
 write_network_config
-
-echo "Docker-compose file $1 generated successfully"
