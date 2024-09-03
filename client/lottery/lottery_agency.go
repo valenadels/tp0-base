@@ -18,9 +18,10 @@ var log = logging.MustGetLogger("log")
 
 const READ_BUFFER_SIZE = 1024
 const ACK_RESPONSE_SIZE = 1
-const END_OF_BETS = 1
+const END_OF_BETS = 'E'
 const U8_LEN = 1
 const U16_LEN = 2
+const DOCUMENT_SIZE_B = 4
 
 // AgencyConfig Configuration used by the agency
 type AgencyConfig struct {
@@ -198,6 +199,7 @@ func (a *Agency) sendEndOfBets() error {
 		if err != nil {
 			return err
 		} else if n == U8_LEN {
+			log.Infof("SENT END OF BETS")
 			return nil
 		}
 	}
@@ -210,28 +212,26 @@ func (a *Agency) getWinners() error {
 	}
 
 	buffer := make([]byte, READ_BUFFER_SIZE)
-	var auxBuffer []byte
 	winnersLen := uint16(0)
 	bytesRead := 0 //without considering the length of the msg
 	for {
-		auxBuffer = buffer[bytesRead:]
-		w, err := a.conn.Read(auxBuffer)
+		n, err := a.conn.Read(buffer[bytesRead:])
 		if err != nil {
 			log.Criticalf("action: consulta_ganadores | result: fail | error: %v", err)
 			return err
 		}
-		
-		copy(buffer[bytesRead:], auxBuffer)
 
-		if w >= U16_LEN && winnersLen == 0 {
+		if n >= U16_LEN && winnersLen == 0 {
 			winnersLen = binary.BigEndian.Uint16(buffer)
 			buffer = buffer[U16_LEN:]
 			bytesRead -= U16_LEN
 		}
 		
-		bytesRead += w
+		bytesRead += n
+		log.Infof("bytes read: %v", n)
+		log.Info("winnersLen: ", winnersLen)
 	
-		if(bytesRead == int(winnersLen)){
+		if(bytesRead == int(winnersLen*DOCUMENT_SIZE_B)){
 			parseWinners(buffer, winnersLen)
 			break
 		}else if(bytesRead < READ_BUFFER_SIZE){
@@ -241,7 +241,7 @@ func (a *Agency) getWinners() error {
 		}
 	}
 
-	log.Infof(`action: consulta_ganadores | result: success | cant_ganadores: ${CANT}`, winnersLen)
+	log.Infof(`action: consulta_ganadores | result: success | cant_ganadores: %v`, winnersLen)
 	return nil
 }
 
@@ -260,13 +260,14 @@ func (a *Agency) sendWinnersRequest() error {
 }
 
 func parseWinners(buffer []byte, winnersLen uint16) []byte {
-	winners := make([]byte, winnersLen)
+	log.Infof("parse winners")
+	winners := make([]byte, winnersLen*DOCUMENT_SIZE_B) 
 	var i uint16
-	for i = 0; i < READ_BUFFER_SIZE && i < winnersLen; i++ {
-		winners[i] = buffer[i]
+	for i = 0; i < winnersLen; i++ {
+		copy(winners[i*4:(i+1)*4], buffer[i*4:(i+1)*4]) 
 	}
 
-	return buffer[i:] //Todo VALEN ver si se resetea a todo 0
+	return buffer[i*4:] 
 }
 
 func (a *Agency) HandleSIGTERM(sigs chan os.Signal) {

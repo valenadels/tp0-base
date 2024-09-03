@@ -8,6 +8,7 @@ from lottery.server_response import ServerResponse
 
 READ_BUFFER_SIZE = 8192 # 8kB
 U8_SIZE = 1
+END = 'E'
 
 class LotteryCentral:
     def __init__(self, port, listen_backlog):
@@ -24,7 +25,7 @@ class LotteryCentral:
         finishes, servers starts to accept new connections again
         """
         signal.signal(signal.SIGTERM, self.handle_SIGTERM)
-        max_connections = self._server_socket.listen
+        max_connections = 1
 
         while max_connections > 0:
             client_sock = self.__accept_new_connection()
@@ -33,11 +34,12 @@ class LotteryCentral:
             max_connections -= 1
         
         logging.info("action: sorteo | result: success")
+
         winners_by_agency = self.winners()
         for a in self._client_sockets:
             self.send_winners(a, winners_by_agency)
-            a.close()
-        self._client_sockets.clear()
+
+        #self._client_sockets.clear()
         
             
     def __handle_client_connection(self, client_sock):
@@ -50,14 +52,10 @@ class LotteryCentral:
         try:
             self.process_bets(client_sock)
             logging.info(f'action: receive_message | result: success | ip: {addr[0]}')
-            self.wait_for_notification(client_sock)
         except:
             logging.error(f'action: receive_message | result: fail | ip: {addr[0]}')
             self._client_sockets.remove(client_sock)
             client_sock.close()
-
-        #client_sock.close()
-        #self._client_sockets.remove(client_sock)
 
     def __accept_new_connection(self):
         """
@@ -87,19 +85,25 @@ class LotteryCentral:
         chunk_size = 0
         batch_size_bytes = U8_SIZE*2
         read = 0
-        timeout = 3
-        while timeout > 0:
+        finished = False
+        while not finished: 
             try:
                 data = client_sock.recv(READ_BUFFER_SIZE-read)
-                if not data:
-                    timeout -= 1
             except BrokenPipeError | TimeoutError as e:
                 raise e 
             
             buffer += data
             read += len(buffer)
             if read > 0 and not processed_chunk_size:
-                chunk_size = int.from_bytes(buffer[:batch_size_bytes], byteorder='big')
+                first_byte = buffer[:batch_size_bytes]
+                try: 
+                    if first_byte.decode('utf-8') == END:
+                        finished = True
+                        break
+                except:
+                    pass
+
+                chunk_size = int.from_bytes(first_byte, byteorder='big')
                 buffer = buffer[batch_size_bytes:] 
                 read -= batch_size_bytes
                 processed_chunk_size = True
@@ -169,10 +173,13 @@ class LotteryCentral:
     def send_winners(self, client_sock, winners_by_agency):
         try:
             agency = self.wait_for_request(client_sock)
-            winners = winners_by_agency.get(agency, [])
-            lenW = len(winners).to_bytes(U8_SIZE, 'big') 
-            msg = lenW + b''.join([w.encode('utf-8') for w in winners])
+            winners = winners_by_agency.get(agency, []) 
+            bytes = [int(w).to_bytes(4, 'big') for w in winners]
+            size = len(bytes).to_bytes(2, 'big')
+            msg = size + b''.join(bytes)
+
             client_sock.sendall(msg)
+            logging.info("action: send_winners | result: success | cantidad: %d", len(winners))
         except Exception as e:
             logging.error("action: send_winners | result: fail | error: %s", e)
     
