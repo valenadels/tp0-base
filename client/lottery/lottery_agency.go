@@ -216,9 +216,7 @@ func (a *Agency) getWinners() error {
 	for {
 		auxBuffer = buffer[bytesRead:]
 		w, err := a.conn.Read(auxBuffer)
-		if err.Error() == "EOF" { //server closed connection bc there is no more data
-			break
-		}else if err != nil {
+		if err != nil {
 			log.Criticalf("action: consulta_ganadores | result: fail | error: %v", err)
 			return err
 		}
@@ -233,10 +231,13 @@ func (a *Agency) getWinners() error {
 		
 		bytesRead += w
 	
-		if(bytesRead >= int(winnersLen)){
-			buffer = parseWinners(buffer, winnersLen)
+		if(bytesRead == int(winnersLen)){
+			parseWinners(buffer, winnersLen)
+			break
 		}else if(bytesRead < READ_BUFFER_SIZE){
 			continue
+		}else{
+			buffer = parseWinners(buffer, winnersLen)
 		}
 	}
 

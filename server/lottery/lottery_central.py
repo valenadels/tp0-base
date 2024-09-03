@@ -3,7 +3,7 @@ import socket
 import logging
 import sys
 
-from lottery.bet import Bet, store_bets
+from lottery.bet import Bet, has_won, load_bets, store_bets
 from lottery.server_response import ServerResponse
 
 READ_BUFFER_SIZE = 8192 # 8kB
@@ -24,11 +24,22 @@ class LotteryCentral:
         finishes, servers starts to accept new connections again
         """
         signal.signal(signal.SIGTERM, self.handle_SIGTERM)
-        while True:
+        max_connections = self._server_socket.listen
+
+        while max_connections > 0:
             client_sock = self.__accept_new_connection()
             self._client_sockets.append(client_sock)
             self.__handle_client_connection(client_sock)
-
+            max_connections -= 1
+        
+        logging.info("action: sorteo | result: success")
+        winners_by_agency = self.winners()
+        for a in self._client_sockets:
+            self.send_winners(a, winners_by_agency)
+            a.close()
+        self._client_sockets.clear()
+        
+            
     def __handle_client_connection(self, client_sock):
         """
         Read message from a specific client socket and closes the socket
@@ -36,10 +47,17 @@ class LotteryCentral:
         client socket will also be closed
         """
         addr = client_sock.getpeername()
-        self.process_bets(client_sock)
-        logging.info(f'action: receive_message | result: success | ip: {addr[0]}')
-        client_sock.close()
-        self._client_sockets.remove(client_sock)
+        try:
+            self.process_bets(client_sock)
+            logging.info(f'action: receive_message | result: success | ip: {addr[0]}')
+            self.wait_for_notification(client_sock)
+        except:
+            logging.error(f'action: receive_message | result: fail | ip: {addr[0]}')
+            self._client_sockets.remove(client_sock)
+            client_sock.close()
+
+        #client_sock.close()
+        #self._client_sockets.remove(client_sock)
 
     def __accept_new_connection(self):
         """
@@ -75,9 +93,8 @@ class LotteryCentral:
                 data = client_sock.recv(READ_BUFFER_SIZE-read)
                 if not data:
                     timeout -= 1
-            except BrokenPipeError | TimeoutError:
-                logging.info("action: receive_message | result: finished connection")
-                return 
+            except BrokenPipeError | TimeoutError as e:
+                raise e 
             
             buffer += data
             read += len(buffer)
@@ -93,20 +110,17 @@ class LotteryCentral:
                 chunk, buffer = self.parse_chunk(buffer, chunk_size)
                 store_bets(chunk)
                 client_sock.sendall(ServerResponse.ok_bytes())
-            except BrokenPipeError:
-                logging.error("action: send_message | result: finished connection")
-                return
-            except Exception as e:
-                logging.error("action: receive_message | result: fail | error: %s", e)
+            except BrokenPipeError as bp:
+                raise bp
+            except TypeError as e:
                 try:
                     client_sock.sendall(ServerResponse.error_bytes())
-                except BrokenPipeError:
-                    logging.error("action: send_message | result: finished connection")
-                    return
+                except Exception as ex:
+                    raise ex
 
             processed_chunk_size = False
             read = 0
-
+    
     def parse_chunk(self, buffer, chunk_size):
         chunk = []
 
@@ -127,7 +141,47 @@ class LotteryCentral:
                 chunk.append(Bet(**bet_values))
             except TypeError as e:
                 logging.info("action: apuesta_recibida | result: fail | cantidad: %d", len(chunk))
-                return e
+                raise e
             
         logging.info("action: apuesta_recibida | result: success | cantidad: %d", len(chunk))
         return chunk, buffer
+    
+    def wait_for_notification(self, client_sock):
+        while True:
+            try:
+                data = client_sock.recv(U8_SIZE)
+                if data:
+                    logging.info("action: receive_message | result: success | data: %s", data)
+                    break
+            except BrokenPipeError as e:
+                raise e
+            
+    def winners(self):
+        bets = load_bets()
+        winners_by_agency = {}
+        for b in bets:
+            if has_won(b):
+                if b.agency not in winners_by_agency:
+                    winners_by_agency[b.agency] = []
+                winners_by_agency[b.agency].append(b.document)
+        return winners_by_agency
+    
+    def send_winners(self, client_sock, winners_by_agency):
+        try:
+            agency = self.wait_for_request(client_sock)
+            winners = winners_by_agency.get(agency, [])
+            lenW = len(winners).to_bytes(U8_SIZE, 'big') 
+            msg = lenW + b''.join([w.encode('utf-8') for w in winners])
+            client_sock.sendall(msg)
+        except Exception as e:
+            logging.error("action: send_winners | result: fail | error: %s", e)
+    
+    def wait_for_request(self, client_sock):
+        while True:
+            try:
+                data = client_sock.recv(U8_SIZE)
+                if data:
+                    logging.info("action: receive_message | result: success | data: %s", data)
+                    return int.from_bytes(data, 'big')
+            except BrokenPipeError as e:
+                raise e
