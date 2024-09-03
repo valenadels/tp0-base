@@ -1,11 +1,13 @@
 package lottery
 
 import (
+	"encoding/binary"
 	"errors"
 	"io"
 	"net"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 	"time"
 
@@ -15,7 +17,10 @@ import (
 var log = logging.MustGetLogger("log")
 
 const READ_BUFFER_SIZE = 1024
-const RESPONSE_SIZE = 1
+const ACK_RESPONSE_SIZE = 1
+const END_OF_BETS = 1
+const U8_LEN = 1
+const U16_LEN = 2
 
 // AgencyConfig Configuration used by the agency
 type AgencyConfig struct {
@@ -44,62 +49,76 @@ func NewAgency(config AgencyConfig) *Agency {
 
 // createAgencySocket Initializes agency socket. In case of
 // failure, error is printed in stdout/stderr and error is returned
-func (c *Agency) createAgencySocket() error {
-	conn, err := net.Dial("tcp", c.config.ServerAddress)
+func (a *Agency) createAgencySocket() error {
+	conn, err := net.Dial("tcp", a.config.ServerAddress)
 	if err != nil {
 		log.Criticalf(
 			"action: connect | result: fail | client_id: %v | error: %v",
-			c.config.ID,
+			a.config.ID,
 			err,
 		)
 		return err
 	}
-	c.conn = conn
+	a.conn = conn
 	return nil
 }
 
-func (c *Agency) StartAgency() {
+func (a *Agency) StartAgency() {
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGTERM)
 
 	go func() {
 		<-sigs
-		c.HandleSIGTERM(sigs)
+		a.HandleSIGTERM(sigs)
 		os.Exit(0)
 	}()
 
-	if c.createAgencySocket() != nil {
-		close(sigs)
-		os.Exit(1)
+	if a.createAgencySocket() != nil {
+		a.closeAll(sigs)
 	}
 
-	if c.sendBets() != nil {
-		close(sigs)
-		if c.config.BetReader != nil {
-			c.config.BetReader.Close()
-		}
-		c.conn.Close()
-		os.Exit(1)
+	if a.sendBets() != nil {
+		a.closeAll(sigs)
 	}
 
-	if c.conn.Close() == nil {
-		log.Infof("action: close_connection | result: success | client_id: %v", c.config.ID)
+	if a.getWinners() != nil {
+		a.closeAll(sigs)
+	}
+
+	if a.conn.Close() == nil {
+		log.Infof("action: close_connection | result: success | client_id: %v", a.config.ID)
 	}
 }
 
-func (c *Agency) sendBets() error {
-	c.config.BetReader = NewBetReader(c.config.ID, c.config.MaxBatchAmount)
-	if c.config.BetReader == nil {
+// Close all connections and exit with code 1. 
+// This function should be called when an error occurs in the agency.
+func (a *Agency) closeAll(sigs chan os.Signal) {
+	close(sigs)
+
+	if a.config.BetReader != nil {
+		a.config.BetReader.Close()
+	}
+
+	if a.conn != nil {
+		a.conn.Close()
+	}
+
+	os.Exit(1)
+}
+
+func (a *Agency) sendBets() error {
+	a.config.BetReader = NewBetReader(a.config.ID, a.config.MaxBatchAmount)
+	if a.config.BetReader == nil {
 		return errors.New("error creating bet reader")
 	}
 
 	batchNumber := 0
 	for {
-		batch, err := c.config.BetReader.ReadNextBatch()
+		batch, err := a.config.BetReader.ReadNextBatch()
 		if err != nil {
 			log.Criticalf(
 				"action: read_file | result: fail | agency_id: %v | error: %v",
-				c.config.ID,
+				a.config.ID,
 				err,
 			)
 			return err
@@ -111,22 +130,27 @@ func (c *Agency) sendBets() error {
 
 		batchNumber++
 		batch = addBatchBytesLen(batch)
-		
 		length := len(batch)
-		sendError := c.sendBatch(length, batch)
+		sendError := a.sendBatch(length, batch)
 		if sendError != nil {
-			log.Criticalf(`action: apuestas_enviadas | result: fail | bytes: %v | batch: %v | error: %v`, length, batchNumber, err)
+			log.Criticalf(`action: apuestas_enviadas | result: fail | bytes: %v | batch: %v | error: %v`, length, batchNumber, sendError)
 			return sendError
 		}
-		c.conn.Read(make([]byte, RESPONSE_SIZE))
+
+		readAckError := a.readAckResponse()
+		if readAckError != nil {
+			log.Criticalf(`action: apuestas_enviadas | result: fail | bytes: %v | batch: %v | error: %v`, length, batchNumber, readAckError)
+			return readAckError
+		}
 
 		log.Infof(`action: apuestas_enviadas | result: success | bytes: %v | batch: %v`, length, batchNumber)
 	}
 
-	c.config.BetReader.Close()
-	c.config.BetReader = nil
+	endErr := a.sendEndOfBets()
+	a.config.BetReader.Close()
+	a.config.BetReader = nil
 
-	return nil
+	return endErr
 }
 
 func addBatchBytesLen(batch []byte) []byte {
@@ -139,9 +163,23 @@ func addBatchBytesLen(batch []byte) []byte {
 	return append(batchWithLength, batch...)
 }
 
-func (c *Agency) sendBatch(length int, batch []byte) error {
+func (a *Agency) readAckResponse() error {
+	ack := make([]byte, ACK_RESPONSE_SIZE)
+	for{
+		n, err := a.conn.Read(ack)
+		if err != nil {
+			return err
+		}
+
+		if n == ACK_RESPONSE_SIZE {
+			return nil
+		}
+	}
+}
+
+func (a *Agency) sendBatch(length int, batch []byte) error {
 	for length > 0 {
-		n, err := c.conn.Write(batch)
+		n, err := a.conn.Write(batch)
 		if errors.Is(err, io.ErrClosedPipe) {
 			return err
 		}
@@ -153,20 +191,97 @@ func (c *Agency) sendBatch(length int, batch []byte) error {
 	return nil
 }
 
-func (c *Agency) HandleSIGTERM(sigs chan os.Signal) {
-	if c.conn != nil {
-		err := c.conn.Close()
-		if err == nil {
-			log.Infof("action: close_connection | result: success | client_id: %v", c.config.ID)
+func (a *Agency) sendEndOfBets() error {
+	msg := []byte{END_OF_BETS}
+	for {
+		n, err := a.conn.Write(msg)
+		if err != nil {
+			return err
+		} else if n == U8_LEN {
+			return nil
+		}
+	}
+}
+
+func (a *Agency) getWinners() error {
+	requestErr := a.sendWinnersRequest()
+	if requestErr != nil {
+		return requestErr
+	}
+
+	buffer := make([]byte, READ_BUFFER_SIZE)
+	var auxBuffer []byte
+	winnersLen := uint16(0)
+	bytesRead := 0 //without considering the length of the msg
+	for {
+		auxBuffer = buffer[bytesRead:]
+		w, err := a.conn.Read(auxBuffer)
+		if err.Error() == "EOF" { //server closed connection bc there is no more data
+			break
+		}else if err != nil {
+			log.Criticalf("action: consulta_ganadores | result: fail | error: %v", err)
+			return err
+		}
+		
+		copy(buffer[bytesRead:], auxBuffer)
+
+		if w >= U16_LEN && winnersLen == 0 {
+			winnersLen = binary.BigEndian.Uint16(buffer)
+			buffer = buffer[U16_LEN:]
+			bytesRead -= U16_LEN
+		}
+		
+		bytesRead += w
+	
+		if(bytesRead >= int(winnersLen)){
+			buffer = parseWinners(buffer, winnersLen)
+		}else if(bytesRead < READ_BUFFER_SIZE){
+			continue
 		}
 	}
 
-	if c.config.BetReader != nil {
-		c.config.BetReader.Close()
+	log.Infof(`action: consulta_ganadores | result: success | cant_ganadores: ${CANT}`, winnersLen)
+	return nil
+}
+
+func (a *Agency) sendWinnersRequest() error {
+	agencyId, _ := strconv.Atoi(a.config.ID)
+	msg := []byte{uint8(agencyId)}
+
+	for {
+		n, err := a.conn.Write(msg)
+		if err != nil {
+			return err
+		} else if n == U8_LEN {
+			return nil
+		}
+	}
+}
+
+func parseWinners(buffer []byte, winnersLen uint16) []byte {
+	winners := make([]byte, winnersLen)
+	var i uint16
+	for i = 0; i < READ_BUFFER_SIZE && i < winnersLen; i++ {
+		winners[i] = buffer[i]
+	}
+
+	return buffer[i:] //Todo VALEN ver si se resetea a todo 0
+}
+
+func (a *Agency) HandleSIGTERM(sigs chan os.Signal) {
+	if a.conn != nil {
+		err := a.conn.Close()
+		if err == nil {
+			log.Infof("action: close_connection | result: success | client_id: %v", a.config.ID)
+		}
+	}
+
+	if a.config.BetReader != nil {
+		a.config.BetReader.Close()
 	}
 
 	if sigs != nil {
 		close(sigs)
-		log.Infof("action: close_client | result: success | client_id: %v", c.config.ID)
+		log.Infof("action: close_client | result: success | client_id: %v", a.config.ID)
 	}
 }
