@@ -8,6 +8,8 @@ services:
       - PYTHONUNBUFFERED=1
     networks:
       - testing_net
+    volumes:
+      - ./server/config.ini:/server/config.ini
   client1:
     container_name: client1
     image: client:latest
@@ -16,6 +18,8 @@ services:
       - CLI_ID=1
     networks:
       - testing_net
+    volumes:
+      - ./client/config.yaml:/config.yaml
     depends_on:
       - server
 networks:
