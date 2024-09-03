@@ -26,7 +26,6 @@ function write_server_config() {
     echo "    entrypoint: python3 /main.py" >> $output_file
     echo "    environment:" >> $output_file
     echo "      - PYTHONUNBUFFERED=1" >> $output_file
-    echo "      - LOGGING_LEVEL=DEBUG" >> $output_file
     echo "    networks:" >> $output_file
     echo "      - testing_net" >> $output_file
     echo "    volumes:" >> $output_file
@@ -42,7 +41,6 @@ function write_client_config() {
         echo "    entrypoint: /client" >> $output_file
         echo "    environment:" >> $output_file
         echo "      - CLI_ID=$i" >> $output_file
-        echo "      - CLI_LOG_LEVEL=DEBUG" >> $output_file
         echo "    networks:" >> $output_file
         echo "      - testing_net" >> $output_file
         echo "    volumes:" >> $output_file
