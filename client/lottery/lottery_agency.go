@@ -199,7 +199,6 @@ func (a *Agency) sendEndOfBets() error {
 		if err != nil {
 			return err
 		} else if n == U8_LEN {
-			log.Infof("SENT END OF BETS")
 			return nil
 		}
 	}
@@ -228,8 +227,6 @@ func (a *Agency) getWinners() error {
 		}
 		
 		bytesRead += n
-		log.Infof("bytes read: %v", n)
-		log.Info("winnersLen: ", winnersLen)
 	
 		if(bytesRead == int(winnersLen*DOCUMENT_SIZE_B)){
 			parseWinners(buffer, winnersLen)
@@ -260,14 +257,13 @@ func (a *Agency) sendWinnersRequest() error {
 }
 
 func parseWinners(buffer []byte, winnersLen uint16) []byte {
-	log.Infof("parse winners")
 	winners := make([]byte, winnersLen*DOCUMENT_SIZE_B) 
 	var i uint16
-	for i = 0; i < winnersLen; i++ {
-		copy(winners[i*4:(i+1)*4], buffer[i*4:(i+1)*4]) 
+	for i = 0; i < winnersLen && i < READ_BUFFER_SIZE; i++ {
+		copy(winners[i*DOCUMENT_SIZE_B:(i+1)*DOCUMENT_SIZE_B], buffer[i*DOCUMENT_SIZE_B:(i+1)*DOCUMENT_SIZE_B]) 
 	}
 
-	return buffer[i*4:] 
+	return buffer[i*DOCUMENT_SIZE_B:] 
 }
 
 func (a *Agency) HandleSIGTERM(sigs chan os.Signal) {

@@ -25,7 +25,7 @@ class LotteryCentral:
         finishes, servers starts to accept new connections again
         """
         signal.signal(signal.SIGTERM, self.handle_SIGTERM)
-        max_connections = 1
+        max_connections = 5
 
         while max_connections > 0:
             client_sock = self.__accept_new_connection()
