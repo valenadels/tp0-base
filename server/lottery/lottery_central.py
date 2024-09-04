@@ -11,12 +11,13 @@ U8_SIZE = 1
 END = 'E'
 
 class LotteryCentral:
-    def __init__(self, port, listen_backlog):
+    def __init__(self, port, listen_backlog, max_clients):
         # Initialize server socket
         self._server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._server_socket.bind(('', port))
         self._server_socket.listen(listen_backlog)
         self._client_sockets = []
+        self._max_clients = max_clients
 
     def run(self):
         """
@@ -25,8 +26,8 @@ class LotteryCentral:
         finishes, servers starts to accept new connections again
         """
         signal.signal(signal.SIGTERM, self.handle_SIGTERM)
-        max_connections = 5
-
+        
+        max_connections = self._max_clients
         while max_connections > 0:
             client_sock = self.__accept_new_connection()
             self._client_sockets.append(client_sock)
