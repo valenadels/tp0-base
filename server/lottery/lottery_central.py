@@ -39,7 +39,7 @@ class LotteryCentral:
         for a in self._client_sockets:
             self.send_winners(a, winners_by_agency)
 
-        #self._client_sockets.clear()
+        self._client_sockets.clear()
         
             
     def __handle_client_connection(self, client_sock):
