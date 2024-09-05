@@ -59,14 +59,14 @@ class LotteryCentral:
         """
         addr = client_sock.getpeername()
         try:
-            self.process_bets(client_sock)
+            maybe_req = self.process_bets(client_sock)
             logging.info(f'action: receive_message | result: success | ip: {addr[0]}')
             self._barrier.wait()
 
             with self._winners_ready:
                 self._winners_ready.wait()
 
-            self.send_winners(client_sock)
+            self.send_winners(client_sock, maybe_req)
         except:
             logging.error(f'action: receive_message | result: fail | ip: {addr[0]}')
             #TODO SACAR DE LA COLA 
@@ -115,7 +115,7 @@ class LotteryCentral:
                     if buffer[:U8_SIZE].decode('utf-8') == END_NOTIFICATION: #TODO bug pq lee menos o no se. ver bien el algoritmo
                         logging.info("action: apuesta_recibida | result: success | end")
                         finished = True
-                        break
+                        return buffer[U8_SIZE:]
                 except:
                     pass
                 if read >= BATCH_SIZE_BYTES:
@@ -172,8 +172,7 @@ class LotteryCentral:
             try:
                 data = client_sock.recv(U8_SIZE)
                 if data:
-                    logging.info("action: receive_message | result: success | data: %s", data)
-                    break
+                    return int.from_bytes(data, byteorder='big')
             except BrokenPipeError as e:
                 raise e
             
@@ -188,13 +187,23 @@ class LotteryCentral:
                 winners_by_agency[b.agency].append(b.document)
 
         logging.info("action: sorteo | result: success")
+
+        with self._lock_winners:
+            self._winners_by_agency = winners_by_agency
         with self._winners_ready:
             self._winners_ready.notify_all()
     
-    def send_winners(self, client_sock):
+    def send_winners(self, client_sock, maybe_req):
         try:
-            agency = self.wait_for_winners_request(client_sock)
+            agency = -1
+            if len(maybe_req) == 0:
+                agency = self.wait_for_winners_request(client_sock)
+            else:
+                agency = int.from_bytes(maybe_req, byteorder='big')
+                
             logging.info("action: received_message | result: success | winner_request from agency: %d", agency)
+            
+            winners = []
             with self._lock_winners:
                 winners = self._winners_by_agency.get(agency, []) 
            

@@ -259,10 +259,11 @@ func (a *Agency) sendWinnersRequest() error {
 }
 
 func parseWinners(buffer []byte, winnersLen uint16) []byte {
-	winners := make([]byte, winnersLen*DOCUMENT_SIZE_B) 
 	var i uint16
 	for i = 0; i < winnersLen && i < READ_BUFFER_SIZE; i++ {
-		copy(winners[i*DOCUMENT_SIZE_B:(i+1)*DOCUMENT_SIZE_B], buffer[i*DOCUMENT_SIZE_B:(i+1)*DOCUMENT_SIZE_B]) 
+		w_bytes := buffer[i*DOCUMENT_SIZE_B : (i+1)*DOCUMENT_SIZE_B]
+		winner := binary.BigEndian.Uint32(w_bytes)
+		log.Infof("action: winners_received | result: success | winners: %v", winner)
 	}
 
 	return buffer[i*DOCUMENT_SIZE_B:] 
