@@ -195,7 +195,7 @@ class LotteryCentral:
     
     def send_winners(self, client_sock, maybe_req):
         try:
-            agency = -1
+            agency = None
             if len(maybe_req) == 0:
                 agency = self.wait_for_winners_request(client_sock)
             else:
