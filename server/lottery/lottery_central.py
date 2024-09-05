@@ -12,7 +12,7 @@ READ_BUFFER_SIZE = 8192 # 8kB
 U8_SIZE = 1
 BATCH_SIZE_BYTES = U8_SIZE*2
 END_NOTIFICATION = 'E'
-TIMEOUT_WINNERS = 10
+TIMEOUT_WINNERS = 5
 
 class LotteryCentral:
     def __init__(self, port, listen_backlog, max_clients):
@@ -68,9 +68,8 @@ class LotteryCentral:
                 self._winners_ready.wait(timeout=TIMEOUT_WINNERS)
 
             self.send_winners(client_sock, maybe_req)
-        except:
-            logging.error(f'action: receive_message | result: fail | ip: {addr[0]}')
-            threading.current_thread().join()
+        except Exception as e:
+            logging.error(f'action: receive_message | result: fail | ip: {addr[0]} | error: {e}')
             client_sock.close()
 
     def __accept_new_connection(self):
@@ -192,7 +191,8 @@ class LotteryCentral:
             self._winners_by_agency = winners_by_agency
         with self._winners_ready:
             self._winners_ready.notify_all()
-    
+        self._barrier.reset()
+            
     def send_winners(self, client_sock, maybe_req):
         try:
             agency = None
