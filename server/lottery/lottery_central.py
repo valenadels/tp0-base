@@ -190,8 +190,8 @@ class LotteryCentral:
         for b in bets:
             if has_won(b):
                 if b.agency not in winners_by_agency:
-                    winners_by_agency[b.agency] = []
-                winners_by_agency[b.agency].append(b.document)
+                    winners_by_agency[b.agency] = set()
+                winners_by_agency[b.agency].update([b.document])
 
         logging.info("action: sorteo | result: success")
 
@@ -211,9 +211,8 @@ class LotteryCentral:
                 
             logging.info("action: received_message | result: success | winner_request from agency: %d", agency)
             
-            winners = []
             with self._lock_winners:
-                winners = self._winners_by_agency.get(agency, []) 
+                winners = self._winners_by_agency.get(agency, set())
            
             bytes = [int(w).to_bytes(4, 'big') for w in winners]
             size = len(bytes).to_bytes(2, 'big')
