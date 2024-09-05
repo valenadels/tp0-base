@@ -3,7 +3,7 @@ import signal
 import socket
 import logging
 import sys
-import threading
+import multiprocessing
 
 from lottery.bet import Bet, has_won, load_bets, store_bets
 from lottery.server_response import ServerResponse
@@ -12,6 +12,7 @@ READ_BUFFER_SIZE = 8192 # 8kB
 U8_SIZE = 1
 BATCH_SIZE_BYTES = U8_SIZE*2
 END_NOTIFICATION = 'E'
+TIMEOUT_WINNERS = 10
 
 class LotteryCentral:
     def __init__(self, port, listen_backlog, max_clients):
@@ -24,11 +25,11 @@ class LotteryCentral:
         self._threads = Queue() # Is thread safe
         self._winners_by_agency = {}
 
-        self._lock_winners = threading.Lock()
-        self._lock_persistence = threading.Lock()
+        self._lock_winners = multiprocessing.Lock()
+        self._lock_persistence = multiprocessing.Lock()
         
-        self._barrier = threading.Barrier(max_clients+1) # +1 for winners calculator thread
-        self._winners_ready = threading.Condition()
+        self._barrier = multiprocessing.Barrier(max_clients+1) # +1 for winners calculator thread
+        self._winners_ready = multiprocessing.Condition()
 
     def run(self):
         """
@@ -38,7 +39,7 @@ class LotteryCentral:
         """
         signal.signal(signal.SIGTERM, self.handle_SIGTERM)
 
-        winner_processor = threading.Thread(target=self.winners, args=())
+        winner_processor = multiprocessing.Process(target=self.winners, args=())
         winner_processor.start()
         self._threads.put(winner_processor)
 
@@ -46,7 +47,7 @@ class LotteryCentral:
             max_clients = self._max_clients
             while max_clients > 0:
                 client_sock = self.__accept_new_connection()
-                client_thread = threading.Thread(target=self.__handle_client_connection, args=(client_sock,))
+                client_thread = multiprocessing.Process(target=self.__handle_client_connection, args=(client_sock,))
                 client_thread.start()
                 self._threads.put(client_thread)
                 max_clients -= 1
@@ -64,13 +65,13 @@ class LotteryCentral:
             self._barrier.wait()
 
             with self._winners_ready:
-                self._winners_ready.wait()
+                self._winners_ready.wait(timeout=TIMEOUT_WINNERS)
 
             self.send_winners(client_sock, maybe_req)
         except:
             logging.error(f'action: receive_message | result: fail | ip: {addr[0]}')
             #TODO SACAR DE LA COLA 
-            threading.current_thread().join()
+            multiprocessing.current_thread().join()
             client_sock.close()
 
     def __accept_new_connection(self):
@@ -112,7 +113,7 @@ class LotteryCentral:
             read += len(buffer)
             if read > 0 and not processed_chunk_size:
                 try: 
-                    if buffer[:U8_SIZE].decode('utf-8') == END_NOTIFICATION: #TODO bug pq lee menos o no se. ver bien el algoritmo
+                    if buffer[:U8_SIZE].decode('utf-8') == END_NOTIFICATION:
                         logging.info("action: apuesta_recibida | result: success | end")
                         finished = True
                         return buffer[U8_SIZE:]

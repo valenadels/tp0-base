@@ -1,0 +1,1247 @@
+docker compose -f docker-compose-dev.yaml logs -f
+client5  | 2024-09-05 02:51:03 INFO     action: config | result: success | client_id: 5 | server_address: server:12345 | loop_amount: 5 | loop_period: 5s | log_level: DEBUG | batch_maxAmount: 133
+client5  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5899 | batch: 1
+client5  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6221 | batch: 2
+client5  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6301 | batch: 3
+client5  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6409 | batch: 4
+client5  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6420 | batch: 5
+client5  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6464 | batch: 6
+client5  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6442 | batch: 7
+client5  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 2906 | batch: 8
+client5  | 2024-09-05 02:51:03 INFO     action: end_of_bets | result: success
+client5  | 2024-09-05 02:51:03 INFO     action: winners_request | result: success
+client5  | 2024-09-05 02:51:04 INFO     action: consulta_ganadores | result: success | cant_ganadores: 0
+client5  | 2024-09-05 02:51:04 INFO     action: close_connection | result: success | client_id: 5
+server   | 2024-09-05 02:51:03 DEBUG    action: config | result: success | port: 12345 | listen_backlog: 5 | logging_level: DEBUG
+server   | 2024-09-05 02:51:03 INFO     action: accept_connections | result: in_progress
+server   | 2024-09-05 02:51:03 INFO     action: accept_connections | result: success | ip: 172.25.125.4
+server   | 2024-09-05 02:51:03 INFO     action: accept_connections | result: in_progress
+client2  | 2024-09-05 02:51:03 INFO     action: config | result: success | client_id: 2 | server_address: server:12345 | loop_amount: 5 | loop_period: 5s | log_level: DEBUG | batch_maxAmount: 133
+server   | 2024-09-05 02:51:03 INFO     action: accept_connections | result: success | ip: 172.25.125.3
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6269 | batch: 1
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6406 | batch: 2
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6453 | batch: 3
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6457 | batch: 4
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6444 | batch: 5
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6210 | batch: 6
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6046 | batch: 7
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6302 | batch: 8
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6279 | batch: 9
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6441 | batch: 10
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6437 | batch: 11
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6406 | batch: 12
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: accept_connections | result: in_progress
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+client1  | 2024-09-05 02:51:03 INFO     action: config | result: success | client_id: 1 | server_address: server:12345 | loop_amount: 5 | loop_period: 5s | log_level: DEBUG | batch_maxAmount: 133
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6437 | batch: 1
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6268 | batch: 2
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6032 | batch: 3
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6310 | batch: 4
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6260 | batch: 5
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6408 | batch: 6
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6423 | batch: 13
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6472 | batch: 7
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6008 | batch: 14
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6163 | batch: 15
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6314 | batch: 16
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6377 | batch: 17
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6437 | batch: 18
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6458 | batch: 19
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6435 | batch: 20
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6246 | batch: 21
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6038 | batch: 22
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6302 | batch: 23
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6247 | batch: 24
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6457 | batch: 25
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6469 | batch: 26
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6420 | batch: 27
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6432 | batch: 28
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6019 | batch: 29
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6182 | batch: 30
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6275 | batch: 31
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6377 | batch: 32
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6449 | batch: 33
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6445 | batch: 34
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6439 | batch: 35
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6232 | batch: 36
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6028 | batch: 37
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6264 | batch: 38
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6249 | batch: 39
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6426 | batch: 40
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6468 | batch: 41
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6469 | batch: 42
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6422 | batch: 43
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5995 | batch: 44
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6194 | batch: 45
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6304 | batch: 46
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6360 | batch: 47
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6439 | batch: 48
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6428 | batch: 49
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6452 | batch: 50
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6287 | batch: 51
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6002 | batch: 52
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6282 | batch: 53
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6266 | batch: 54
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6429 | batch: 55
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6448 | batch: 56
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6407 | batch: 57
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6377 | batch: 58
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6028 | batch: 59
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6135 | batch: 60
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6332 | batch: 61
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6337 | batch: 62
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6447 | batch: 63
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6424 | batch: 64
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6476 | batch: 65
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6296 | batch: 66
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5973 | batch: 67
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6268 | batch: 68
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6264 | batch: 69
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6428 | batch: 70
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6470 | batch: 71
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6433 | batch: 72
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6425 | batch: 73
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6055 | batch: 74
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6152 | batch: 75
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6256 | batch: 76
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6344 | batch: 77
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6458 | batch: 78
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6428 | batch: 79
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6448 | batch: 80
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6359 | batch: 81
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5958 | batch: 82
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6301 | batch: 83
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6269 | batch: 84
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6384 | batch: 85
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6469 | batch: 86
+client2  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6464 | batch: 87
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6422 | batch: 88
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6094 | batch: 89
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6108 | batch: 90
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6332 | batch: 91
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6339 | batch: 92
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6417 | batch: 93
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6412 | batch: 94
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6483 | batch: 95
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6386 | batch: 96
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 5952 | batch: 97
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6232 | batch: 98
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6285 | batch: 99
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6411 | batch: 8
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6398 | batch: 9
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6024 | batch: 10
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6142 | batch: 11
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6293 | batch: 12
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6364 | batch: 13
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6459 | batch: 14
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6419 | batch: 15
+client3  | 2024-09-05 02:51:03 INFO     action: config | result: success | client_id: 3 | server_address: server:12345 | loop_amount: 5 | loop_period: 5s | log_level: DEBUG | batch_maxAmount: 133
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6257 | batch: 1
+client4  | 2024-09-05 02:51:03 INFO     action: config | result: success | client_id: 4 | server_address: server:12345 | loop_amount: 5 | loop_period: 5s | log_level: DEBUG | batch_maxAmount: 133
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5930 | batch: 1
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6223 | batch: 2
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6314 | batch: 3
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6376 | batch: 4
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6368 | batch: 100
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6436 | batch: 101
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6444 | batch: 102
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6415 | batch: 103
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6087 | batch: 104
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6144 | batch: 105
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6305 | batch: 106
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6322 | batch: 107
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6411 | batch: 108
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6414 | batch: 109
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6482 | batch: 110
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6464 | batch: 5
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6426 | batch: 6
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6470 | batch: 7
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6174 | batch: 8
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6050 | batch: 9
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6328 | batch: 10
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6271 | batch: 11
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6442 | batch: 12
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6465 | batch: 13
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6436 | batch: 16
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6308 | batch: 17
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5978 | batch: 18
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6312 | batch: 19
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6271 | batch: 20
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6409 | batch: 21
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6466 | batch: 22
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6450 | batch: 23
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6411 | batch: 24
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6045 | batch: 25
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6419 | batch: 14
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6441 | batch: 15
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5980 | batch: 16
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6196 | batch: 17
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6306 | batch: 18
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6391 | batch: 19
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6142 | batch: 26
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6280 | batch: 27
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6328 | batch: 28
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6433 | batch: 29
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6419 | batch: 30
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6491 | batch: 31
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6332 | batch: 32
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5941 | batch: 33
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6274 | batch: 34
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6261 | batch: 35
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6387 | batch: 36
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6435 | batch: 37
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6444 | batch: 38
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6390 | batch: 39
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6085 | batch: 40
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6441 | batch: 20
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6429 | batch: 21
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6391 | batch: 22
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6180 | batch: 23
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6019 | batch: 24
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6362 | batch: 25
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6247 | batch: 26
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6444 | batch: 27
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6436 | batch: 28
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6427 | batch: 29
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6490 | batch: 30
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5922 | batch: 31
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6213 | batch: 32
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6278 | batch: 33
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6371 | batch: 34
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6447 | batch: 35
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6457 | batch: 36
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6419 | batch: 37
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6234 | batch: 38
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6003 | batch: 39
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6380 | batch: 40
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6243 | batch: 41
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6410 | batch: 42
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6471 | batch: 43
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6419 | batch: 44
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6453 | batch: 45
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5956 | batch: 46
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6163 | batch: 47
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6276 | batch: 48
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6405 | batch: 49
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6440 | batch: 50
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6438 | batch: 51
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6406 | batch: 52
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6199 | batch: 53
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6076 | batch: 54
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6315 | batch: 55
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6293 | batch: 56
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6440 | batch: 57
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6464 | batch: 58
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6401 | batch: 59
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6398 | batch: 60
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6008 | batch: 61
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6174 | batch: 62
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6302 | batch: 63
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6354 | batch: 64
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6445 | batch: 65
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6463 | batch: 66
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6432 | batch: 67
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6238 | batch: 68
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6021 | batch: 69
+client4  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 2848 | batch: 70
+client4  | 2024-09-05 02:51:03 INFO     action: end_of_bets | result: success
+client4  | 2024-09-05 02:51:03 INFO     action: winners_request | result: success
+client4  | 2024-09-05 02:51:04 INFO     action: consulta_ganadores | result: success | cant_ganadores: 0
+client4  | 2024-09-05 02:51:04 INFO     action: close_connection | result: success | client_id: 4
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6379 | batch: 2
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6429 | batch: 3
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6429 | batch: 4
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6460 | batch: 5
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6253 | batch: 6
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5998 | batch: 7
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6284 | batch: 8
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6302 | batch: 9
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6452 | batch: 10
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6527 | batch: 11
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6426 | batch: 12
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6390 | batch: 13
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6035 | batch: 14
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6151 | batch: 15
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6274 | batch: 16
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6358 | batch: 17
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6441 | batch: 18
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6433 | batch: 19
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6438 | batch: 20
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6322 | batch: 21
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5986 | batch: 22
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6252 | batch: 23
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6272 | batch: 24
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6425 | batch: 25
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6460 | batch: 26
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6425 | batch: 27
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6400 | batch: 28
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6063 | batch: 29
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6137 | batch: 30
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6307 | batch: 31
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6376 | batch: 32
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6456 | batch: 33
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6393 | batch: 34
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6428 | batch: 35
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6331 | batch: 36
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5975 | batch: 37
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6289 | batch: 38
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6292 | batch: 39
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6396 | batch: 40
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6457 | batch: 41
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6475 | batch: 42
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6427 | batch: 43
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6075 | batch: 44
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6136 | batch: 45
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6307 | batch: 46
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6355 | batch: 47
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6426 | batch: 48
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6439 | batch: 49
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6493 | batch: 50
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6385 | batch: 51
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5929 | batch: 52
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6253 | batch: 53
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6283 | batch: 54
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6400 | batch: 55
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6468 | batch: 56
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6454 | batch: 57
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6388 | batch: 58
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6131 | batch: 59
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6072 | batch: 41
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6322 | batch: 42
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6325 | batch: 43
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6440 | batch: 44
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6440 | batch: 45
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6442 | batch: 46
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6373 | batch: 47
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5952 | batch: 48
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6300 | batch: 49
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6306 | batch: 50
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6379 | batch: 51
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6453 | batch: 52
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6420 | batch: 53
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6407 | batch: 54
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6092 | batch: 55
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6111 | batch: 56
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6291 | batch: 57
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6305 | batch: 58
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6422 | batch: 59
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6423 | batch: 60
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6468 | batch: 61
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6360 | batch: 62
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5959 | batch: 63
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6262 | batch: 64
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6281 | batch: 65
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6393 | batch: 66
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6440 | batch: 67
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6450 | batch: 68
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6416 | batch: 69
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6136 | batch: 70
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6129 | batch: 71
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6292 | batch: 72
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6366 | batch: 73
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6390 | batch: 74
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6411 | batch: 75
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6440 | batch: 76
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6429 | batch: 77
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5884 | batch: 78
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6273 | batch: 79
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6300 | batch: 80
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6401 | batch: 81
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6437 | batch: 82
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6462 | batch: 83
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6406 | batch: 84
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6116 | batch: 85
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6119 | batch: 86
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6312 | batch: 87
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6294 | batch: 88
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6463 | batch: 89
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6442 | batch: 90
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6455 | batch: 91
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6406 | batch: 92
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5908 | batch: 93
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6217 | batch: 94
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6309 | batch: 95
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6377 | batch: 96
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6440 | batch: 97
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6409 | batch: 98
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6420 | batch: 99
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6164 | batch: 100
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6100 | batch: 101
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6318 | batch: 102
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6297 | batch: 103
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6414 | batch: 104
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6445 | batch: 105
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6477 | batch: 106
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6398 | batch: 107
+client1  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5946 | batch: 108
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6249 | batch: 109
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6276 | batch: 110
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6408 | batch: 111
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6407 | batch: 112
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6415 | batch: 113
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6453 | batch: 114
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6175 | batch: 115
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6063 | batch: 116
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6346 | batch: 117
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6287 | batch: 118
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6437 | batch: 119
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6447 | batch: 120
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6468 | batch: 121
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6417 | batch: 122
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 5984 | batch: 123
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6187 | batch: 124
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6307 | batch: 125
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6364 | batch: 126
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6444 | batch: 127
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6470 | batch: 128
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6436 | batch: 129
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6207 | batch: 130
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6047 | batch: 131
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6329 | batch: 132
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6261 | batch: 133
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6435 | batch: 134
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6405 | batch: 135
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6465 | batch: 136
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6441 | batch: 137
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 5967 | batch: 138
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6210 | batch: 139
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6300 | batch: 140
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6344 | batch: 141
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6447 | batch: 142
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6459 | batch: 143
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6393 | batch: 144
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6219 | batch: 145
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6040 | batch: 146
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6352 | batch: 147
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6260 | batch: 148
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6449 | batch: 149
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6475 | batch: 150
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6408 | batch: 151
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6460 | batch: 152
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 5957 | batch: 153
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6172 | batch: 154
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6264 | batch: 155
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6407 | batch: 156
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6411 | batch: 157
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6462 | batch: 158
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6448 | batch: 159
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6202 | batch: 160
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6023 | batch: 161
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6304 | batch: 162
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6285 | batch: 163
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6460 | batch: 164
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6404 | batch: 165
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6374 | batch: 166
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6429 | batch: 167
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 5992 | batch: 168
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6162 | batch: 169
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6252 | batch: 170
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6385 | batch: 171
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6455 | batch: 172
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6436 | batch: 173
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6421 | batch: 174
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6240 | batch: 175
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6018 | batch: 176
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6297 | batch: 177
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6249 | batch: 178
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6448 | batch: 179
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6464 | batch: 180
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6436 | batch: 181
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6421 | batch: 182
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 5992 | batch: 183
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6153 | batch: 184
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6286 | batch: 185
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6370 | batch: 186
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6439 | batch: 187
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6450 | batch: 188
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6453 | batch: 189
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6230 | batch: 190
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6019 | batch: 191
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6308 | batch: 192
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6246 | batch: 193
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6441 | batch: 194
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6429 | batch: 195
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6439 | batch: 196
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6416 | batch: 197
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6052 | batch: 198
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6177 | batch: 199
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6284 | batch: 200
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6391 | batch: 201
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6452 | batch: 202
+client1  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 3379 | batch: 203
+client1  | 2024-09-05 02:51:04 INFO     action: end_of_bets | result: success
+client1  | 2024-09-05 02:51:04 INFO     action: winners_request | result: success
+client1  | 2024-09-05 02:51:04 INFO     action: consulta_ganadores | result: success | cant_ganadores: 0
+client1  | 2024-09-05 02:51:04 INFO     action: close_connection | result: success | client_id: 1
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6352 | batch: 111
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 5948 | batch: 112
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6255 | batch: 113
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6288 | batch: 114
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6408 | batch: 115
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6435 | batch: 116
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6434 | batch: 117
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6429 | batch: 118
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6087 | batch: 119
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6136 | batch: 120
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6287 | batch: 121
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6345 | batch: 122
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6390 | batch: 123
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6436 | batch: 124
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6430 | batch: 125
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6407 | batch: 126
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 5891 | batch: 127
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6249 | batch: 128
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6289 | batch: 129
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6384 | batch: 130
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6422 | batch: 131
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6418 | batch: 132
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6413 | batch: 133
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6134 | batch: 134
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6122 | batch: 135
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6305 | batch: 136
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6296 | batch: 137
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6389 | batch: 138
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6489 | batch: 139
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6450 | batch: 140
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6410 | batch: 141
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 5911 | batch: 142
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6243 | batch: 143
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6299 | batch: 144
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6363 | batch: 145
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6442 | batch: 146
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6395 | batch: 147
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6459 | batch: 148
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6181 | batch: 149
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6114 | batch: 150
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6355 | batch: 151
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6302 | batch: 152
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6423 | batch: 153
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6462 | batch: 154
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6440 | batch: 155
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6404 | batch: 156
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 5934 | batch: 157
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6190 | batch: 158
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6279 | batch: 159
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6391 | batch: 160
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6423 | batch: 161
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6429 | batch: 162
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6416 | batch: 163
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6139 | batch: 164
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6087 | batch: 165
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6340 | batch: 166
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6293 | batch: 167
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6428 | batch: 168
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6454 | batch: 169
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6480 | batch: 170
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6425 | batch: 171
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 5954 | batch: 172
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6188 | batch: 173
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6312 | batch: 174
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6350 | batch: 175
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6479 | batch: 176
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6445 | batch: 177
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6444 | batch: 178
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6233 | batch: 179
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6048 | batch: 180
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6354 | batch: 181
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6266 | batch: 182
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6429 | batch: 183
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6447 | batch: 184
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6435 | batch: 185
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6437 | batch: 186
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 5985 | batch: 187
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6235 | batch: 188
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6149 | batch: 60
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6285 | batch: 61
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6371 | batch: 62
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6301 | batch: 189
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6390 | batch: 190
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 6427 | batch: 191
+client2  | 2024-09-05 02:51:04 INFO     action: apuestas_enviadas | result: success | bytes: 5535 | batch: 192
+client2  | 2024-09-05 02:51:04 INFO     action: end_of_bets | result: success
+client2  | 2024-09-05 02:51:04 INFO     action: winners_request | result: success
+client2  | 2024-09-05 02:51:04 INFO     action: consulta_ganadores | result: success | cant_ganadores: 0
+client2  | 2024-09-05 02:51:04 INFO     action: close_connection | result: success | client_id: 2
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6429 | batch: 63
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6405 | batch: 64
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6476 | batch: 65
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6377 | batch: 66
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5968 | batch: 67
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6252 | batch: 68
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6314 | batch: 69
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6361 | batch: 70
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6419 | batch: 71
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6465 | batch: 72
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6418 | batch: 73
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6089 | batch: 74
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6140 | batch: 75
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6273 | batch: 76
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6377 | batch: 77
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6413 | batch: 78
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6435 | batch: 79
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6497 | batch: 80
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6416 | batch: 81
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5917 | batch: 82
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6252 | batch: 83
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6289 | batch: 84
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6391 | batch: 85
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6443 | batch: 86
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6456 | batch: 87
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6430 | batch: 88
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6130 | batch: 89
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6104 | batch: 90
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6342 | batch: 91
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6313 | batch: 92
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6417 | batch: 93
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6436 | batch: 94
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6434 | batch: 95
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6459 | batch: 96
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5930 | batch: 97
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6222 | batch: 98
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6271 | batch: 99
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6383 | batch: 100
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6418 | batch: 101
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6408 | batch: 102
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6438 | batch: 103
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6139 | batch: 104
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6123 | batch: 105
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6346 | batch: 106
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6302 | batch: 107
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6408 | batch: 108
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6470 | batch: 109
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6469 | batch: 110
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6381 | batch: 111
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 5925 | batch: 112
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6236 | batch: 113
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6282 | batch: 114
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6373 | batch: 115
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6436 | batch: 116
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6432 | batch: 117
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6439 | batch: 118
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6160 | batch: 119
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 6061 | batch: 120
+client3  | 2024-09-05 02:51:03 INFO     action: apuestas_enviadas | result: success | bytes: 2557 | batch: 121
+client3  | 2024-09-05 02:51:03 INFO     action: end_of_bets | result: success
+client3  | 2024-09-05 02:51:03 INFO     action: winners_request | result: success
+client3  | 2024-09-05 02:51:04 INFO     action: consulta_ganadores | result: success | cant_ganadores: 0
+client3  | 2024-09-05 02:51:04 INFO     action: close_connection | result: success | client_id: 3
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 61
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | end
+server   | 2024-09-05 02:51:03 INFO     action: receive_message | result: success | ip: 172.25.125.4
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: accept_connections | result: success | ip: 172.25.125.5
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: accept_connections | result: in_progress
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: accept_connections | result: success | ip: 172.25.125.6
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: accept_connections | result: in_progress
+server   | 2024-09-05 02:51:03 INFO     action: accept_connections | result: success | ip: 172.25.125.7
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: accept_connections | result: in_progress
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 60
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | end
+server   | 2024-09-05 02:51:03 INFO     action: receive_message | result: success | ip: 172.25.125.6
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 54
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | end
+server   | 2024-09-05 02:51:03 INFO     action: receive_message | result: success | ip: 172.25.125.3
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:03 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 70
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | end
+server   | 2024-09-05 02:51:04 INFO     action: receive_message | result: success | ip: 172.25.125.5
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 133
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | cantidad: 115
+server   | 2024-09-05 02:51:04 INFO     action: apuesta_recibida | result: success | end
+server   | 2024-09-05 02:51:04 INFO     action: receive_message | result: success | ip: 172.25.125.7
+server   | 2024-09-05 02:51:04 INFO     action: sorteo | result: success
+server   | 2024-09-05 02:51:04 INFO     action: received_message | result: success | winner_request from agency: 1
+server   | 2024-09-05 02:51:04 INFO     action: received_message | result: success | winner_request from agency: 4
+server   | 2024-09-05 02:51:04 INFO     action: received_message | result: success | winner_request from agency: 2
+server   | 2024-09-05 02:51:04 INFO     action: send_winners | result: success | cantidad: 0
+server   | 2024-09-05 02:51:04 INFO     action: send_winners | result: success | cantidad: 0
+server   | 2024-09-05 02:51:04 INFO     action: send_winners | result: success | cantidad: 0
+server   | 2024-09-05 02:51:04 INFO     action: received_message | result: success | winner_request from agency: 3
+server   | 2024-09-05 02:51:04 INFO     action: received_message | result: success | winner_request from agency: 5
+server   | 2024-09-05 02:51:04 INFO     action: send_winners | result: success | cantidad: 0
+server   | 2024-09-05 02:51:04 INFO     action: send_winners | result: success | cantidad: 0
