@@ -30,17 +30,20 @@ class LotteryCentral:
         
         while True:
             max_connections = self._max_clients
+            remaining_buffers = {}
             while max_connections > 0:
                 client_sock = self.__accept_new_connection()
                 self._client_sockets.append(client_sock)
-                self.__handle_client_connection(client_sock)
+                remaining_buff = self.__handle_client_connection(client_sock)
+                if remaining_buff:
+                    remaining_buffers[client_sock.getpeername()[0]] = remaining_buff
                 max_connections -= 1
             
             logging.info("action: sorteo | result: success")
 
             winners_by_agency = self.winners()
             for a in self._client_sockets:
-                self.send_winners(a, winners_by_agency)
+                self.send_winners(a, winners_by_agency, remaining_buffers.get(a.getpeername()[0], b''))
 
             self._client_sockets.clear()
         
@@ -53,12 +56,14 @@ class LotteryCentral:
         """
         addr = client_sock.getpeername()
         try:
-            self.process_bets(client_sock)
+            maybe_req = self.process_bets(client_sock)
             logging.info(f'action: receive_message | result: success | ip: {addr[0]}')
+            return maybe_req
         except:
             logging.error(f'action: receive_message | result: fail | ip: {addr[0]}')
             self._client_sockets.remove(client_sock)
             client_sock.close()
+            return None
 
     def __accept_new_connection(self):
         """
@@ -100,7 +105,7 @@ class LotteryCentral:
                 try: 
                     if buffer[:U8_SIZE].decode('utf-8') == END:
                         finished = True
-                        break
+                        return buffer[U8_SIZE:]
                 except:
                     pass
                 
@@ -162,9 +167,14 @@ class LotteryCentral:
                 winners_by_agency[b.agency].append(b.document)
         return winners_by_agency
     
-    def send_winners(self, client_sock, winners_by_agency):
+    def send_winners(self, client_sock, winners_by_agency, remaining_buff):
         try:
-            agency = self.wait_for_request(client_sock)
+            agency = None
+            if len(remaining_buff) == 0:
+                agency = self.wait_for_request(client_sock)
+            else:
+                agency = int.from_bytes(remaining_buff, 'big')
+                
             winners = winners_by_agency.get(agency, []) 
             bytes = [int(w).to_bytes(4, 'big') for w in winners]
             size = len(bytes).to_bytes(2, 'big')
