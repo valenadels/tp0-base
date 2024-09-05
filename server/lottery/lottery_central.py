@@ -1,7 +1,9 @@
+from queue import Queue
 import signal
 import socket
 import logging
 import sys
+import threading
 
 from lottery.bet import Bet, has_won, load_bets, store_bets
 from lottery.server_response import ServerResponse
@@ -16,8 +18,16 @@ class LotteryCentral:
         self._server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._server_socket.bind(('', port))
         self._server_socket.listen(listen_backlog)
-        self._client_sockets = []
         self._max_clients = max_clients
+
+        self._threads = Queue() # Is thread safe
+        self._winners_by_agency = {}
+
+        self._lock_winners = threading.Lock()
+        self._lock_persistence = threading.Lock()
+        
+        self._barrier = threading.Barrier(max_clients+1) # +1 for winners calculator thread
+        self._winners_ready = threading.Condition()
 
     def run(self):
         """
@@ -26,22 +36,21 @@ class LotteryCentral:
         finishes, servers starts to accept new connections again
         """
         signal.signal(signal.SIGTERM, self.handle_SIGTERM)
-        
-        max_connections = self._max_clients
-        while max_connections > 0:
-            client_sock = self.__accept_new_connection()
-            self._client_sockets.append(client_sock)
-            self.__handle_client_connection(client_sock)
-            max_connections -= 1
-        
-        logging.info("action: sorteo | result: success")
 
-        winners_by_agency = self.winners()
-        for a in self._client_sockets:
-            self.send_winners(a, winners_by_agency)
+        winner_processor = threading.Thread(target=self.winners, args=())
+        winner_processor.start()
+        self._threads.put(winner_processor)
 
-        self._client_sockets.clear()
-        
+        while True:
+            max_clients = self._max_clients
+            while max_clients > 0:
+                client_sock = self.__accept_new_connection()
+                client_thread = threading.Thread(target=self.__handle_client_connection, args=(client_sock,))
+                client_thread.start()
+                self._threads.put(client_thread)
+                max_clients -= 1
+            
+
             
     def __handle_client_connection(self, client_sock):
         """
@@ -53,9 +62,17 @@ class LotteryCentral:
         try:
             self.process_bets(client_sock)
             logging.info(f'action: receive_message | result: success | ip: {addr[0]}')
+            self.wait_for_winners_request(client_sock)
+            self._barrier.wait()
+
+            with self._winners_ready: #HAY DEADLOCK
+                self._winners_ready.wait()
+
+            self.send_winners(client_sock)
         except:
             logging.error(f'action: receive_message | result: fail | ip: {addr[0]}')
-            self._client_sockets.remove(client_sock)
+           #TODO SACAR DE LA COLA self._threads.
+            threading.current_thread().join()
             client_sock.close()
 
     def __accept_new_connection(self):
@@ -73,8 +90,9 @@ class LotteryCentral:
         return c
     
     def handle_SIGTERM(self, signum, frame):
-        for client_sock in self._client_sockets:
-            client_sock.close()
+        while not self._threads.empty():
+            thread = self._threads.get()
+            thread.join()
             logging.info("action: close_client_connection | result: success")
         self._server_socket.close()
         logging.info("action: close_server | result: success")
@@ -98,7 +116,8 @@ class LotteryCentral:
             if read > 0 and not processed_chunk_size:
                 first_byte = buffer[:batch_size_bytes]
                 try: 
-                    if first_byte.decode('utf-8') == END:
+                    if first_byte.decode('utf-8') == END: #TODO bug pq lee menos o no se. ver bien el algoritmo
+                        logging.info("action: apuesta_recibida | result: success | end")
                         finished = True
                         break
                 except:
@@ -113,7 +132,8 @@ class LotteryCentral:
             
             try:
                 chunk, buffer = self.parse_chunk(buffer, chunk_size)
-                store_bets(chunk)
+                with self._lock_persistence:
+                    store_bets(chunk)
                 client_sock.sendall(ServerResponse.ok_bytes())
             except BrokenPipeError as bp:
                 raise bp
@@ -124,7 +144,7 @@ class LotteryCentral:
                     raise ex
 
             processed_chunk_size = False
-            read = 0
+            read = 0 #TODO ?
     
     def parse_chunk(self, buffer, chunk_size):
         chunk = []
@@ -151,7 +171,7 @@ class LotteryCentral:
         logging.info("action: apuesta_recibida | result: success | cantidad: %d", len(chunk))
         return chunk, buffer
     
-    def wait_for_notification(self, client_sock):
+    def wait_for_winners_request(self, client_sock):
         while True:
             try:
                 data = client_sock.recv(U8_SIZE)
@@ -162,6 +182,7 @@ class LotteryCentral:
                 raise e
             
     def winners(self):
+        self._barrier.wait()
         bets = load_bets()
         winners_by_agency = {}
         for b in bets:
@@ -169,12 +190,18 @@ class LotteryCentral:
                 if b.agency not in winners_by_agency:
                     winners_by_agency[b.agency] = []
                 winners_by_agency[b.agency].append(b.document)
-        return winners_by_agency
+
+        logging.info("action: sorteo | result: success")
+        with self._winners_ready:
+            self._winners_ready.notify_all()
     
-    def send_winners(self, client_sock, winners_by_agency):
+    def send_winners(self, client_sock):
         try:
             agency = self.wait_for_request(client_sock)
-            winners = winners_by_agency.get(agency, []) 
+            logging.info("action: received_message | result: success | winner_request from agency: %d", agency)
+            with self._lock_winners:
+                winners = self._winners_by_agency.get(agency, []) 
+           
             bytes = [int(w).to_bytes(4, 'big') for w in winners]
             size = len(bytes).to_bytes(2, 'big')
             msg = size + b''.join(bytes)

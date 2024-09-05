@@ -199,6 +199,7 @@ func (a *Agency) sendEndOfBets() error {
 		if err != nil {
 			return err
 		} else if n == U8_LEN {
+			log.Infof("action: end_of_bets | result: success")
 			return nil
 		}
 	}
@@ -251,6 +252,7 @@ func (a *Agency) sendWinnersRequest() error {
 		if err != nil {
 			return err
 		} else if n == U8_LEN {
+			log.Infof("action: winners_request | result: success")
 			return nil
 		}
 	}
