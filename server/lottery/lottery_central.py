@@ -119,7 +119,7 @@ class LotteryCentral:
             read += len(buffer)
             if read > 0 and not processed_chunk_size:
                 try: 
-                    if buffer[:U8_SIZE].decode('utf-8') == END_NOTIFICATION: #TODO bug pq lee menos o no se. ver bien el algoritmo
+                    if buffer[:U8_SIZE].decode('utf-8') == END_NOTIFICATION:
                         logging.info("action: apuesta_recibida | result: success | end")
                         finished = True
                         return buffer[U8_SIZE:]
