@@ -11,7 +11,7 @@ from lottery.server_response import ServerResponse
 READ_BUFFER_SIZE = 8192 # 8kB
 U8_SIZE = 1
 BATCH_SIZE_BYTES = U8_SIZE*2
-END = 'E'
+END_NOTIFICATION = 'E'
 
 class LotteryCentral:
     def __init__(self, port, listen_backlog, max_clients):
@@ -50,9 +50,7 @@ class LotteryCentral:
                 client_thread.start()
                 self._threads.put(client_thread)
                 max_clients -= 1
-            
 
-            
     def __handle_client_connection(self, client_sock):
         """
         Read message from a specific client socket and closes the socket
@@ -63,7 +61,6 @@ class LotteryCentral:
         try:
             self.process_bets(client_sock)
             logging.info(f'action: receive_message | result: success | ip: {addr[0]}')
-            self.wait_for_winners_request(client_sock)
             self._barrier.wait()
 
             with self._winners_ready:
@@ -115,7 +112,7 @@ class LotteryCentral:
             read += len(buffer)
             if read > 0 and not processed_chunk_size:
                 try: 
-                    if buffer[:U8_SIZE].decode('utf-8') == END: #TODO bug pq lee menos o no se. ver bien el algoritmo
+                    if buffer[:U8_SIZE].decode('utf-8') == END_NOTIFICATION: #TODO bug pq lee menos o no se. ver bien el algoritmo
                         logging.info("action: apuesta_recibida | result: success | end")
                         finished = True
                         break
@@ -131,7 +128,6 @@ class LotteryCentral:
             
             try:
                 chunk, buffer = self.parse_chunk(buffer, chunk_size)
-                logging.debug("BUFFER AFTER PARSE: %s CLIENT: %s", buffer, client_sock.getpeername())
                 with self._lock_persistence:
                     store_bets(chunk)
                 client_sock.sendall(ServerResponse.ok_bytes())
@@ -197,7 +193,7 @@ class LotteryCentral:
     
     def send_winners(self, client_sock):
         try:
-            agency = self.wait_for_request(client_sock)
+            agency = self.wait_for_winners_request(client_sock)
             logging.info("action: received_message | result: success | winner_request from agency: %d", agency)
             with self._lock_winners:
                 winners = self._winners_by_agency.get(agency, []) 
@@ -210,13 +206,3 @@ class LotteryCentral:
             logging.info("action: send_winners | result: success | cantidad: %d", len(winners))
         except Exception as e:
             logging.error("action: send_winners | result: fail | error: %s", e)
-    
-    def wait_for_request(self, client_sock):
-        while True:
-            try:
-                data = client_sock.recv(U8_SIZE)
-                if data:
-                    logging.info("action: receive_message | result: success | data: %s", data)
-                    return int.from_bytes(data, 'big')
-            except BrokenPipeError as e:
-                raise e
