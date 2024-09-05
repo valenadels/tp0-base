@@ -10,6 +10,7 @@ from lottery.server_response import ServerResponse
 
 READ_BUFFER_SIZE = 8192 # 8kB
 U8_SIZE = 1
+BATCH_SIZE_BYTES = U8_SIZE*2
 END = 'E'
 
 class LotteryCentral:
@@ -65,13 +66,13 @@ class LotteryCentral:
             self.wait_for_winners_request(client_sock)
             self._barrier.wait()
 
-            with self._winners_ready: #HAY DEADLOCK
+            with self._winners_ready:
                 self._winners_ready.wait()
 
             self.send_winners(client_sock)
         except:
             logging.error(f'action: receive_message | result: fail | ip: {addr[0]}')
-           #TODO SACAR DE LA COLA self._threads.
+            #TODO SACAR DE LA COLA 
             threading.current_thread().join()
             client_sock.close()
 
@@ -102,8 +103,7 @@ class LotteryCentral:
         buffer = b''
         processed_chunk_size = False
         chunk_size = 0
-        batch_size_bytes = U8_SIZE*2
-        read = 0
+        read = 0 # without considering the size
         finished = False
         while not finished: 
             try:
@@ -114,24 +114,24 @@ class LotteryCentral:
             buffer += data
             read += len(buffer)
             if read > 0 and not processed_chunk_size:
-                first_byte = buffer[:batch_size_bytes]
                 try: 
-                    if first_byte.decode('utf-8') == END: #TODO bug pq lee menos o no se. ver bien el algoritmo
+                    if buffer[:U8_SIZE].decode('utf-8') == END: #TODO bug pq lee menos o no se. ver bien el algoritmo
                         logging.info("action: apuesta_recibida | result: success | end")
                         finished = True
                         break
                 except:
                     pass
-
-                chunk_size = int.from_bytes(first_byte, byteorder='big')
-                buffer = buffer[batch_size_bytes:] 
-                read -= batch_size_bytes
-                processed_chunk_size = True
+                if read >= BATCH_SIZE_BYTES:
+                    chunk_size = int.from_bytes(buffer[:BATCH_SIZE_BYTES], byteorder='big')
+                    buffer = buffer[BATCH_SIZE_BYTES:] 
+                    read -= BATCH_SIZE_BYTES
+                    processed_chunk_size = True
             if read < chunk_size: 
                 continue
             
             try:
                 chunk, buffer = self.parse_chunk(buffer, chunk_size)
+                logging.debug("BUFFER AFTER PARSE: %s CLIENT: %s", buffer, client_sock.getpeername())
                 with self._lock_persistence:
                     store_bets(chunk)
                 client_sock.sendall(ServerResponse.ok_bytes())
@@ -144,7 +144,7 @@ class LotteryCentral:
                     raise ex
 
             processed_chunk_size = False
-            read = 0 #TODO ?
+            read = len(buffer)
     
     def parse_chunk(self, buffer, chunk_size):
         chunk = []
