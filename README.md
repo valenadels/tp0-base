@@ -21,14 +21,14 @@ Cada ejercicio (del 1 al 8) se encuentra en una rama separada, llamada respectiv
     ```bash
     ./generar-compose.sh docker-compose-dev.yaml 5
     ```
-    En caso de elegir otro nombre para el archivo, se debe modificar `docker-compose-dev.yaml` por el nombre elegido en el Makefile.
+    En caso de elegir otro nombre para el archivo, se debe modificar en el Makefile `docker-compose-dev.yaml` por el nombre elegido.
 
-- ej2: En este item se modificó el docker compose para que cambios en los archivos de configuración (config.ini y config.yaml) no requiera un nuevo build. Esto se hizo utilizando volúmenes en el docker-compose. Para ejecutarlo, se debe correr el comando `make docker-compose-up`.
+- ej2: En este item se modificó el docker compose para que cambios en los archivos de configuración (config.ini y config.yaml) no requieran un nuevo build. Esto se hizo utilizando volúmenes en el docker-compose. Para ejecutarlo, se debe correr el comando `make docker-compose-up`.
 
 - ej3: Para ejecutar el script del ej3, ejecutar: `./validar-echo-server.sh` en la raiz del proyecto.
 
 - ej4: Se modifica el cliente y el servidor para terminar de forma GRACEFUL. Para ejecutarlo, se debe correr el comando `make docker-compose-up` y luego si se hace un 
-`docker-compose down`, docker envía SIGTERM y se podrá ver que los containers se detienen de forma correcta. 
+`docker-compose-down`, docker envía SIGTERM y se podrá ver que los containers se detienen de forma correcta. 
 Se eliminó el flag -t para que no tenga un timeout que fuerce el fin de la ejecución.
 
 - ej5: En este ejercicio, se modificó la lógica para representar una lotería. En el archivo docker compose se definen como variables de entorno los campos que representan la apuesta de una persona: nombre, apellido, DNI, nacimiento, numero apostado (en adelante 'número'). Ej: NOMBRE=Santiago Lionel, APELLIDO=Lorca, DOCUMENTO=30904465, NACIMIENTO=1999-03-17 y NUMERO=7574.
@@ -39,15 +39,14 @@ Se eliminó el flag -t para que no tenga un timeout que fuerce el fin de la ejec
 ### Protocolo Parte 2
 ### Ejercicio 5
 Se optó por un protocolo en el cual, los mensajes son de longitud variable. Para ello, se envía primero la longitud del mensaje (de un tamaño predefinido de uint8) y luego el campo en sí. Es decir:
-`<SIZE_ID>AGENCY_ID<SIZE_NOMBRE>NOMBRE<SIZE_APELLIDO>APELLIDO<SIZE_DOCUMENTO>DOCUMENTO<SIZE_NACIMIENTO>NACIMIENOT<SIZE_NUMERO>NUMERO`
+`<SIZE_ID>AGENCY_ID<SIZE_NOMBRE>NOMBRE<SIZE_APELLIDO>APELLIDO<SIZE_DOCUMENTO>DOCUMENTO<SIZE_NACIMIENTO>NACIMIENO<SIZE_NUMERO>NUMERO`
 
 Por ejemplo, si NOMBRE = "juan", el size de NOMBRE es 4 bytes, por lo que quedaría: `4juan`.
 
 Los campos son todos strings. Al decodificarlos, el servidor los lee como utf-8 en big endian.
 
-El protocolo de capa de trasporte utilizado es TCP, por lo tanto, como en este ejercicio solo se envía una apuesta, decidí que con el ACK interno de TCP es suficiente para asegurar que el mensaje llegó correctamente, por lo que no hay un mensaje de confirmación extra del servidor. 
+El protocolo de capa de transporte utilizado es TCP, por lo tanto, como en este ejercicio solo se envía una apuesta, decidí que con el ACK interno de TCP es suficiente para asegurar que el mensaje llegó correctamente, por lo que no hay un mensaje de confirmación extra del servidor. 
 
-En caso de que la apuesta sea ganadora, el servidor envía un mensaje con el monto ganado. En caso de que la apuesta sea perdedora, el servidor envía un mensaje con el monto perdido.
 Se implementaron métodos para enviar y recibir los mensajes por los sockets que sean short-read y short-write safe.
 
 ### Ejercicio 6
@@ -88,6 +87,6 @@ Se explican a continuación los mecanismos de sincronización y concurrencia uti
 
 - Conditions: Se empleó una variable de condicion para que cada thread dedicado a cada cliente espere a que el thread que calcula los ganadores, termine de cargar las apuestas y finalice el sorteo. Surgió el problema de manejar el posible caso de una "señal perdida" que ocurriría si se realiza el notify_all() antes del wait(). Sin embargo, la probabilidad de que esto suceda es altamente baja ya que antes del notify, ese hilo realiza varias operaciones que toman tiempo. De todos modos, se optó por setear un timeout de 5 segundos en el wait() para evitar que el hilo quede esperando indefinidamente si se diera esta situación.
 
-- Queue: Las colas de python son thread safe. Por eso se usaron para guardar los hilos para su posterior join.
+- Queue: Se usa para guardar los hilos para su posterior join.
 
 Por último, como aclaración, se modificó el método `run` para que corra el servidor indefinidamente, pero procese de a 5 clientes por vez.
