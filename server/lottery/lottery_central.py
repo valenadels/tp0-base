@@ -39,11 +39,10 @@ class LotteryCentral:
         """
         signal.signal(signal.SIGTERM, self.handle_SIGTERM)
 
-        winner_processor = threading.Thread(target=self.winners, args=())
-        winner_processor.start()
-        self._threads.put(winner_processor)
-
         while True:
+            winner_processor = threading.Thread(target=self.winners, args=())
+            winner_processor.start()
+            self._threads.put(winner_processor)
             max_clients = self._max_clients
             while max_clients > 0:
                 client_sock = self.__accept_new_connection()
@@ -51,6 +50,14 @@ class LotteryCentral:
                 client_thread.start()
                 self._threads.put(client_thread)
                 max_clients -= 1
+
+            self.wait_and_join_clients(winner_processor)
+
+    def wait_and_join_clients(self, winner_processor):
+        while self._threads.qsize() > 0:
+            thread = self._threads.get()
+            thread.join()
+        winner_processor.join()
 
     def __handle_client_connection(self, client_sock):
         """
@@ -71,6 +78,7 @@ class LotteryCentral:
         except Exception as e:
             logging.error(f'action: receive_message | result: fail | ip: {addr[0]} | error: {e}')
             client_sock.close()
+            self._barrier.wait()
 
     def __accept_new_connection(self):
         """
@@ -192,7 +200,7 @@ class LotteryCentral:
         with self._winners_ready:
             self._winners_ready.notify_all()
         self._barrier.reset()
-            
+
     def send_winners(self, client_sock, maybe_req):
         try:
             agency = None
