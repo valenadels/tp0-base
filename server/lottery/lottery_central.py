@@ -108,23 +108,17 @@ class LotteryCentral:
         processed_chunk_size = False
         chunk_size = 0
         read = 0 # without considering the size
-        finished = False
-        while not finished: 
-            try:
-                data = client_sock.recv(READ_BUFFER_SIZE-read)
-            except BrokenPipeError | TimeoutError as e:
-                raise e 
+    
+        while True: 
+            data = client_sock.recv(READ_BUFFER_SIZE-read)
             
             buffer += data
             read += len(buffer)
             if read > 0 and not processed_chunk_size:
-                try: 
-                    if buffer[:U8_SIZE].decode('utf-8') == END_NOTIFICATION:
-                        logging.info("action: apuesta_recibida | result: success | end")
-                        finished = True
-                        return buffer[U8_SIZE:]
-                except:
-                    pass
+                if buffer[:U8_SIZE].decode('utf-8') == END_NOTIFICATION:
+                    logging.info("action: apuesta_recibida | result: success | end")
+                    return buffer[U8_SIZE:]
+                
                 if read >= BATCH_SIZE_BYTES:
                     chunk_size = int.from_bytes(buffer[:BATCH_SIZE_BYTES], byteorder='big')
                     buffer = buffer[BATCH_SIZE_BYTES:] 
@@ -138,13 +132,9 @@ class LotteryCentral:
                 with self._lock_persistence:
                     store_bets(chunk)
                 client_sock.sendall(ServerResponse.ok_bytes())
-            except BrokenPipeError as bp:
-                raise bp
-            except TypeError as e:
-                try:
-                    client_sock.sendall(ServerResponse.error_bytes())
-                except Exception as ex:
-                    raise ex
+            except TypeError:
+                logging.error("action: apuesta_recibida | result: fail | error: invalid_bet")
+                client_sock.sendall(ServerResponse.error_bytes())
 
             processed_chunk_size = False
             read = len(buffer)
@@ -164,25 +154,17 @@ class LotteryCentral:
                     field_data, buffer = buffer[:length_data], buffer[length_data:]
                     bet_values[bet_fields.pop(0)] = field_data.decode('utf-8')
                     chunk_size -= length_data
-            
-            try:
-                chunk.append(Bet(**bet_values))
-            except TypeError as e:
-                logging.info("action: apuesta_recibida | result: fail | cantidad: %d", len(chunk))
-                raise e
+            chunk.append(Bet(**bet_values))
             
         logging.info("action: apuesta_recibida | result: success | cantidad: %d", len(chunk))
         return chunk, buffer
     
     def wait_for_winners_request(self, client_sock):
         while True:
-            try:
-                data = client_sock.recv(U8_SIZE)
-                if data:
-                    return int.from_bytes(data, byteorder='big')
-            except BrokenPipeError as e:
-                raise e
-            
+            data = client_sock.recv(U8_SIZE)
+            if data:
+                return int.from_bytes(data, byteorder='big')
+                
     def winners(self):
         self._barrier.wait()
         bets = load_bets()
