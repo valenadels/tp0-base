@@ -3,7 +3,6 @@ package lottery
 import (
 	"encoding/binary"
 	"errors"
-	"io"
 	"net"
 	"os"
 	"os/signal"
@@ -30,7 +29,7 @@ type AgencyConfig struct {
 	LoopAmount     int
 	LoopPeriod     time.Duration
 	MaxBatchAmount int
-	BetReader 	   *BetReader
+	BetReader      *BetReader
 }
 
 // Agency Entity that encapsulates how
@@ -91,7 +90,7 @@ func (a *Agency) StartAgency() {
 	}
 }
 
-// Close all connections and exit with code 1. 
+// Close all connections and exit with code 1.
 // This function should be called when an error occurs in the agency.
 func (a *Agency) closeAll(sigs chan os.Signal) {
 	close(sigs)
@@ -132,7 +131,7 @@ func (a *Agency) sendBets() error {
 		batchNumber++
 		batch = addBatchBytesLen(batch)
 		length := len(batch)
-		sendError := a.sendBatch(length, batch)
+		sendError := SendAll(a.conn, batch)
 		if sendError != nil {
 			log.Criticalf(`action: apuestas_enviadas | result: fail | bytes: %v | batch: %v | error: %v`, length, batchNumber, sendError)
 			return sendError
@@ -178,31 +177,9 @@ func (a *Agency) readAckResponse() error {
 	}
 }
 
-func (a *Agency) sendBatch(length int, batch []byte) error {
-	for length > 0 {
-		n, err := a.conn.Write(batch)
-		if errors.Is(err, io.ErrClosedPipe) {
-			return err
-		}
-
-		batch = batch[n:]
-		length -= n
-	}
-
-	return nil
-}
-
 func (a *Agency) sendEndOfBets() error {
 	msg := []byte{END_OF_BETS}
-	for {
-		n, err := a.conn.Write(msg)
-		if err != nil {
-			return err
-		} else if n == U8_LEN {
-			log.Infof("action: end_of_bets | result: success")
-			return nil
-		}
-	}
+	return SendAll(a.conn, msg)
 }
 
 func (a *Agency) getWinners() error {
@@ -246,16 +223,7 @@ func (a *Agency) getWinners() error {
 func (a *Agency) sendWinnersRequest() error {
 	agencyId, _ := strconv.Atoi(a.config.ID)
 	msg := []byte{uint8(agencyId)}
-
-	for {
-		n, err := a.conn.Write(msg)
-		if err != nil {
-			return err
-		} else if n == U8_LEN {
-			log.Infof("action: winners_request | result: success")
-			return nil
-		}
-	}
+	return SendAll(a.conn, msg)
 }
 
 func parseWinners(buffer []byte, winnersLen uint16) []byte {
