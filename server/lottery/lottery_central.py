@@ -2,7 +2,6 @@ from queue import Queue
 import signal
 import socket
 import logging
-import sys
 import threading
 
 from lottery.bet import Bet, has_won, load_bets, store_bets
@@ -21,6 +20,8 @@ class LotteryCentral:
         self._server_socket.bind(('', port))
         self._server_socket.listen(listen_backlog)
         self._max_clients = max_clients
+        self._finished = False
+        self._finished_lock = threading.Lock()
 
         self._threads = Queue() # Is thread safe
         self._winners_by_agency = {}
@@ -40,24 +41,47 @@ class LotteryCentral:
         signal.signal(signal.SIGTERM, self.handle_SIGTERM)
 
         while True:
+            with self._finished_lock:
+                if self._finished:
+                    break
             winner_processor = threading.Thread(target=self.winners, args=())
             winner_processor.start()
             self._threads.put(winner_processor)
-            max_clients = self._max_clients
-            while max_clients > 0:
-                client_sock = self.__accept_new_connection()
-                client_thread = threading.Thread(target=self.__handle_client_connection, args=(client_sock,))
-                client_thread.start()
-                self._threads.put(client_thread)
-                max_clients -= 1
 
-            self.wait_and_join_clients(winner_processor)
+            self.accept_and_process_max_clients()
 
-    def wait_and_join_clients(self, winner_processor):
+        self._server_socket.close()
+        logging.info("action: finish_server | result: success | reason: SIGTERM")
+
+    def accept_and_process_max_clients(self):
+        max_clients = self._max_clients
+        while max_clients > 0:
+            with self._finished_lock:
+                if self._finished:
+                    break
+            client_sock = self.__accept_new_connection()
+            with self._finished_lock:
+                if self._finished or client_sock is None:
+                    logging.info("action: finish_server | result: in_progress")
+                    if client_sock is not None:
+                        client_sock.close()
+                    break
+                     
+            client_thread = threading.Thread(target=self.__handle_client_connection, args=(client_sock,))
+            client_thread.start()
+            self._threads.put(client_thread)
+            max_clients -= 1
+
+        self.wait_and_join_clients()
+
+    def wait_and_join_clients(self): 
+        logging.info("action: wait_and_join_clients | result: in_progress")
+        if self._threads.qsize() == 1: # only winner processor thread
+            self._barrier.abort()
         while self._threads.qsize() > 0:
             thread = self._threads.get()
             thread.join()
-        winner_processor.join()
+        logging.info("action: finish_threads | result: success | reason: all_clients_finished")
 
     def __handle_client_connection(self, client_sock):
         """
@@ -68,6 +92,14 @@ class LotteryCentral:
         addr = client_sock.getpeername()
         try:
             maybe_req = self.process_bets(client_sock)
+            with self._finished_lock:
+                if self._finished:
+                    logging.info(f'action: finish_server | result: in_progress | reason: SIGTERM | ip: {addr[0]}')
+                    client_sock.close()
+                    self.remove_thread(threading.current_thread())
+                    self._barrier.wait()
+                    return
+            
             logging.info(f'action: receive_message | result: success | ip: {addr[0]}')
             self._barrier.wait()
 
@@ -75,6 +107,8 @@ class LotteryCentral:
                 self._winners_ready.wait(timeout=TIMEOUT_WINNERS)
 
             self.send_winners(client_sock, maybe_req)
+            client_sock.close()
+                
         except Exception as e:
             logging.error(f'action: receive_message | result: fail | ip: {addr[0]} | error: {e}')
             client_sock.close()
@@ -87,31 +121,29 @@ class LotteryCentral:
         Function blocks until a connection to a client is made.
         Then connection created is printed and returned
         """
-
-        # Connection arrived
-        logging.info('action: accept_connections | result: in_progress')
-        c, addr = self._server_socket.accept()
-        logging.info(f'action: accept_connections | result: success | ip: {addr[0]}')
-        return c
+        try:
+            logging.info('action: accept_connections | result: in_progress')
+            c, addr = self._server_socket.accept()
+            logging.info(f'action: accept_connections | result: success | ip: {addr[0]}')
+            return c
+        except Exception as e:
+              logging.info('action: accept_connections | result: interrupted')
+              return None
     
     def handle_SIGTERM(self, signum, frame):
-        while not self._threads.empty():
-            thread = self._threads.get()
-            thread.join()
-            logging.info("action: close_client_connection | result: success")
-        self._server_socket.close()
-        logging.info("action: close_server | result: success")
-        sys.exit(0)
+        with self._finished_lock:
+            self._finished = True
+        if self._threads.qsize() == 1: # only winner processor thread
+            self._server_socket.close()
 
     def process_bets(self, client_sock):
         buffer = b''
         processed_chunk_size = False
         chunk_size = 0
         read = 0 # without considering the size
-    
+
         while True: 
             data = client_sock.recv(READ_BUFFER_SIZE-read)
-            
             buffer += data
             read += len(buffer)
             if read > 0 and not processed_chunk_size:
@@ -132,6 +164,11 @@ class LotteryCentral:
                 with self._lock_persistence:
                     store_bets(chunk)
                 client_sock.sendall(ServerResponse.ok_bytes())
+
+                with self._finished_lock: 
+                    if self._finished:
+                        logging.info("action: apuesta_recibida | result: fail | reason: SIGTERM")
+                        break
             except TypeError:
                 logging.error("action: apuesta_recibida | result: fail | error: invalid_bet")
                 client_sock.sendall(ServerResponse.error_bytes())
@@ -161,12 +198,24 @@ class LotteryCentral:
     
     def wait_for_winners_request(self, client_sock):
         while True:
+            with self._finished_lock:
+                if self._finished:
+                    return None
             data = client_sock.recv(U8_SIZE)
             if data:
                 return int.from_bytes(data, byteorder='big')
                 
     def winners(self):
-        self._barrier.wait()
+        try:
+            self._barrier.wait()
+        except threading.BrokenBarrierError:
+            logging.info("action: sorteo | result: fail | error: SIGTERM")
+            return
+        
+        with self._finished_lock:
+            if self._finished:
+                self._winners_ready.notify_all()
+                return
         bets = load_bets()
         winners_by_agency = {}
         for b in bets:
@@ -190,6 +239,9 @@ class LotteryCentral:
                 agency = self.wait_for_winners_request(client_sock)
             else:
                 agency = int.from_bytes(maybe_req, byteorder='big')
+
+            if agency is None:
+                return
                 
             logging.info("action: received_message | result: success | winner_request from agency: %d", agency)
             
