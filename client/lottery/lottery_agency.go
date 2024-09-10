@@ -36,6 +36,7 @@ type AgencyConfig struct {
 type Agency struct {
 	config AgencyConfig
 	conn   net.Conn
+	finished bool
 }
 
 // NewAgency Initializes a new agency receiving the configuration
@@ -69,41 +70,30 @@ func (a *Agency) StartAgency() {
 
 	go func() {
 		<-sigs
-		a.HandleSIGTERM(sigs)
-		os.Exit(0)
+		a.HandleSIGTERM()
 	}()
 
-	if a.createAgencySocket() != nil {
-		a.closeAll(sigs)
-	}
+    funcs := []func() error{a.createAgencySocket, a.sendBets, a.getWinners}
+    for _, fn := range funcs {
+        if fn() != nil {
+            break
+        }
+    }
 
-	if a.sendBets() != nil {
-		a.closeAll(sigs)
-	}
-
-	if a.getWinners() != nil {
-		a.closeAll(sigs)
-	}
-
-	if a.conn.Close() == nil {
-		log.Infof("action: close_connection | result: success | client_id: %v", a.config.ID)
-	}
+	a.closeAll()
 }
 
-// Close all connections and exit with code 1.
+// Close all connections 
 // This function should be called when an error occurs in the agency.
-func (a *Agency) closeAll(sigs chan os.Signal) {
-	close(sigs)
-
+func (a *Agency) closeAll() {
 	if a.config.BetReader != nil {
 		a.config.BetReader.Close()
 	}
 
 	if a.conn != nil {
 		a.conn.Close()
+		log.Infof("action: close_connection | result: success | client_id: %v", a.config.ID)
 	}
-
-	os.Exit(1)
 }
 
 func (a *Agency) sendBets() error {
@@ -237,20 +227,11 @@ func parseWinners(buffer []byte, winnersLen uint16) []byte {
 	return buffer[i*DOCUMENT_SIZE_B:] 
 }
 
-func (a *Agency) HandleSIGTERM(sigs chan os.Signal) {
+func (a *Agency) HandleSIGTERM() {
 	if a.conn != nil {
 		err := a.conn.Close()
 		if err == nil {
 			log.Infof("action: close_connection | result: success | client_id: %v", a.config.ID)
 		}
-	}
-
-	if a.config.BetReader != nil {
-		a.config.BetReader.Close()
-	}
-
-	if sigs != nil {
-		close(sigs)
-		log.Infof("action: close_client | result: success | client_id: %v", a.config.ID)
 	}
 }

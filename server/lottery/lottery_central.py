@@ -75,7 +75,6 @@ class LotteryCentral:
         self.wait_and_join_clients()
 
     def wait_and_join_clients(self): 
-        logging.info("action: wait_and_join_clients | result: in_progress")
         while self._threads.qsize() > 0:
             thread = self._threads.get()
             thread.join()
@@ -207,7 +206,6 @@ class LotteryCentral:
         try:
             self._barrier.wait()
         except threading.BrokenBarrierError:
-            logging.info("action: sorteo | result: fail | error: SIGTERM")
             return
         
         with self._finished_lock:
