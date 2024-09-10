@@ -76,8 +76,6 @@ class LotteryCentral:
 
     def wait_and_join_clients(self): 
         logging.info("action: wait_and_join_clients | result: in_progress")
-        if self._threads.qsize() == 1: # only winner processor thread
-            self._barrier.abort()
         while self._threads.qsize() > 0:
             thread = self._threads.get()
             thread.join()
@@ -92,16 +90,14 @@ class LotteryCentral:
         addr = client_sock.getpeername()
         try:
             maybe_req = self.process_bets(client_sock)
-            with self._finished_lock:
-                if self._finished:
-                    logging.info(f'action: finish_server | result: in_progress | reason: SIGTERM | ip: {addr[0]}')
-                    client_sock.close()
-                    self.remove_thread(threading.current_thread())
-                    self._barrier.wait()
-                    return
             
             logging.info(f'action: receive_message | result: success | ip: {addr[0]}')
-            self._barrier.wait()
+            try:
+                self._barrier.wait()
+            except threading.BrokenBarrierError: # SIGTERM closes the barrier
+                logging.info(f'action: receive_message | result: fail | ip: {addr[0]} | reason: SIGTERM')
+                client_sock.close()
+                return
 
             with self._winners_ready:
                 self._winners_ready.wait(timeout=TIMEOUT_WINNERS)
@@ -135,6 +131,8 @@ class LotteryCentral:
             self._finished = True
         if self._threads.qsize() == 1: # only winner processor thread
             self._server_socket.close()
+            logging.info("action: close_server | result: success | reason: SIGTERM")
+        self._barrier.abort()
 
     def process_bets(self, client_sock):
         buffer = b''
@@ -143,6 +141,11 @@ class LotteryCentral:
         read = 0 # without considering the size
 
         while True: 
+            with self._finished_lock: 
+                if self._finished:
+                    logging.info("action: apuesta_recibida | result: fail | reason: SIGTERM")
+                    break
+
             data = client_sock.recv(READ_BUFFER_SIZE-read)
             buffer += data
             read += len(buffer)
@@ -164,11 +167,6 @@ class LotteryCentral:
                 with self._lock_persistence:
                     store_bets(chunk)
                 client_sock.sendall(ServerResponse.ok_bytes())
-
-                with self._finished_lock: 
-                    if self._finished:
-                        logging.info("action: apuesta_recibida | result: fail | reason: SIGTERM")
-                        break
             except TypeError:
                 logging.error("action: apuesta_recibida | result: fail | error: invalid_bet")
                 client_sock.sendall(ServerResponse.error_bytes())
